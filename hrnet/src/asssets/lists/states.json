@@ -1,0 +1,240 @@
+{
+	"states": [
+		{
+			"fullName": "Alabama",
+			"shortName": "AL"
+		},
+		{
+			"fullName": "Alaska",
+			"shortName": "AK"
+		},
+		{
+			"fullName": "American Samoa",
+			"shortName": "AS"
+		},
+		{
+			"fullName": "Arizona",
+			"shortName": "AZ"
+		},
+		{
+			"fullName": "Arkansas",
+			"shortName": "AR"
+		},
+		{
+			"fullName": "California",
+			"shortName": "CA"
+		},
+		{
+			"fullName": "Colorado",
+			"shortName": "CO"
+		},
+		{
+			"fullName": "Connecticut",
+			"shortName": "CT"
+		},
+		{
+			"fullName": "Delaware",
+			"shortName": "DE"
+		},
+		{
+			"fullName": "District Of Columbia",
+			"shortName": "DC"
+		},
+		{
+			"fullName": "Federated States Of Micronesia",
+			"shortName": "FM"
+		},
+		{
+			"fullName": "Florida",
+			"shortName": "FL"
+		},
+		{
+			"fullName": "Georgia",
+			"shortName": "GA"
+		},
+		{
+			"fullName": "Guam",
+			"shortName": "GU"
+		},
+		{
+			"fullName": "Hawaii",
+			"shortName": "HI"
+		},
+		{
+			"fullName": "Idaho",
+			"shortName": "ID"
+		},
+		{
+			"fullName": "Illinois",
+			"shortName": "IL"
+		},
+		{
+			"fullName": "Indiana",
+			"shortName": "IN"
+		},
+		{
+			"fullName": "Iowa",
+			"shortName": "IA"
+		},
+		{
+			"fullName": "Kansas",
+			"shortName": "KS"
+		},
+		{
+			"fullName": "Kentucky",
+			"shortName": "KY"
+		},
+		{
+			"fullName": "Louisiana",
+			"shortName": "LA"
+		},
+		{
+			"fullName": "Maine",
+			"shortName": "ME"
+		},
+		{
+			"fullName": "Marshall Islands",
+			"shortName": "MH"
+		},
+		{
+			"fullName": "Maryland",
+			"shortName": "MD"
+		},
+		{
+			"fullName": "Massachusetts",
+			"shortName": "MA"
+		},
+		{
+			"fullName": "Michigan",
+			"shortName": "MI"
+		},
+		{
+			"fullName": "Minnesota",
+			"shortName": "MN"
+		},
+		{
+			"fullName": "Mississippi",
+			"shortName": "MS"
+		},
+		{
+			"fullName": "Missouri",
+			"shortName": "MO"
+		},
+		{
+			"fullName": "Montana",
+			"shortName": "MT"
+		},
+		{
+			"fullName": "Nebraska",
+			"shortName": "NE"
+		},
+		{
+			"fullName": "Nevada",
+			"shortName": "NV"
+		},
+		{
+			"fullName": "New Hampshire",
+			"shortName": "NH"
+		},
+		{
+			"fullName": "New Jersey",
+			"shortName": "NJ"
+		},
+		{
+			"fullName": "New Mexico",
+			"shortName": "NM"
+		},
+		{
+			"fullName": "New York",
+			"shortName": "NY"
+		},
+		{
+			"fullName": "North Carolina",
+			"shortName": "NC"
+		},
+		{
+			"fullName": "North Dakota",
+			"shortName": "ND"
+		},
+		{
+			"fullName": "Northern Mariana Islands",
+			"shortName": "MP"
+		},
+		{
+			"fullName": "Ohio",
+			"shortName": "OH"
+		},
+		{
+			"fullName": "Oklahoma",
+			"shortName": "OK"
+		},
+		{
+			"fullName": "Oregon",
+			"shortName": "OR"
+		},
+		{
+			"fullName": "Palau",
+			"shortName": "PW"
+		},
+		{
+			"fullName": "Pennsylvania",
+			"shortName": "PA"
+		},
+		{
+			"fullName": "Puerto Rico",
+			"shortName": "PR"
+		},
+		{
+			"fullName": "Rhode Island",
+			"shortName": "RI"
+		},
+		{
+			"fullName": "South Carolina",
+			"shortName": "SC"
+		},
+		{
+			"fullName": "South Dakota",
+			"shortName": "SD"
+		},
+		{
+			"fullName": "Tennessee",
+			"shortName": "TN"
+		},
+		{
+			"fullName": "Texas",
+			"shortName": "TX"
+		},
+		{
+			"fullName": "Utah",
+			"shortName": "UT"
+		},
+		{
+			"fullName": "Vermont",
+			"shortName": "VT"
+		},
+		{
+			"fullName": "Virgin Islands",
+			"shortName": "VI"
+		},
+		{
+			"fullName": "Virginia",
+			"shortName": "VA"
+		},
+		{
+			"fullName": "Washington",
+			"shortName": "WA"
+		},
+		{
+			"fullName": "West Virginia",
+			"shortName": "WV"
+		},
+		{
+			"fullName": "Wisconsin",
+			"shortName": "WI"
+		},
+		{
+			"fullName": "Wyoming",
+			"shortName": "WY"
+		}
+	]
+}
