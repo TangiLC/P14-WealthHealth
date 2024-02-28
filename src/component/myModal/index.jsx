@@ -1,8 +1,10 @@
 import React from "react";
 
 const MyModal = ({
+	overlayStyle,
 	modalStyle,
 	closeStyle,
+	closeOffsetStyle,
 	closeContent,
 	modalTitle,
 	titleStyle,
@@ -11,32 +13,51 @@ const MyModal = ({
 	isModalOpen,
 	closeModal,
 }) => {
+	const defaultOverlayStyle = {
+		backgroundColor: "black",
+		opacity: ".5",
+		...overlayStyle,
+		position: "fixed",
+		top: 0,
+		left: 0,
+		width: "100%",
+		height: "100%",
+		zIndex: 999,
+	};
+
 	const defaultModalStyle = {
-		zIndex: "999",
 		width: "50%",
-		position: "absolute",
 		top: "50%",
 		left: "50%",
-		transform: "translate(-50%, -50%)",
+		transform: `translate(-50%, -50%)`,
 		border: "1px solid black",
+		borderRadius: "6px",
 		backgroundColor: "white",
 		textAlign: "center",
-        padding:"12px",
+		padding: "12px",
 		...modalStyle,
+		position: "absolute",
+		zIndex: "999",
 	};
 
 	const defaultCloseStyle = {
-		width: "30px",
-		height: "30px",
+		width: "1.6rem",
+		height: "1.6rem",
 		borderRadius: "50%",
 		backgroundColor: "black",
 		color: "white",
-        fontSize:"28px",
-        fontWeight:"700",
+		fontSize: "1.5rem",
+		fontWeight: "600",
 		textAlign: "center",
-		lineHeight: "30px",
+		lineHeight: "1.6rem",
 		cursor: "pointer",
 		...closeStyle,
+	};
+	const defaultCloseOffset = {
+		top: "-.7rem",
+		right: "-.7rem",
+		...closeOffsetStyle,
+		position: "absolute",
 	};
 	const defaultTitleStyle = {
 		fontSize: "20px",
@@ -50,23 +71,26 @@ const MyModal = ({
 	}
 
 	return (
-		<div className="modal" style={defaultModalStyle}>
-			<div style={{ position: "absolute", top: "-15px", right: "-15px" }}>
-				<div
-					className="modal-close"
-					style={defaultCloseStyle}
-					onClick={closeModal}
-				>
-					{closeContent ? closeContent : "×"}
+		<>
+			<div style={defaultOverlayStyle}></div>
+			<div className="modal" style={defaultModalStyle}>
+				<div style={defaultCloseOffset}>
+					<div
+						className="modal-close"
+						style={defaultCloseStyle}
+						onClick={closeModal}
+					>
+						{closeContent ? closeContent : "×"}
+					</div>
+				</div>
+				<div className="modal-title" style={defaultTitleStyle}>
+					{modalTitle}
+				</div>
+				<div className="modal-message" style={defaultMessageStyle}>
+					{modalMessage}
 				</div>
 			</div>
-			<div className="modal-title" style={defaultTitleStyle}>
-				{modalTitle}
-			</div>
-			<div className="modal-message" style={defaultMessageStyle}>
-				{modalMessage}
-			</div>
-		</div>
+		</>
 	);
 };
 
