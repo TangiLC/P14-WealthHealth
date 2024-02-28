@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import InputComponent from "../../component/formInput";
-import SaveButton from "../../component/saveButton";
+//import SaveButton from "../../component/saveButton";
 
 import styles from "./styles.module.css";
 

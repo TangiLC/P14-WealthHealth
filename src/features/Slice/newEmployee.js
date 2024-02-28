@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 export const newEmployeeSlice = createSlice({
 	name: "newEmployee",
 	initialState: {
-		id: null,
 		firstName: null,
 		lastName: null,
 		dateOfBirth: null,

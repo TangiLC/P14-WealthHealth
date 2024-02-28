@@ -11,6 +11,7 @@ const InputComponent = ({ label, regex, errorMessage, item }) => {
 
 	const handleChange = (e) => {
 		const { value } = e.target;
+
 		setInputValue(value);
 		if (!regex.test(value) && value.length !== 0) {
 			setShowErrorMessage(true);
