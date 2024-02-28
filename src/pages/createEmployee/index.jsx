@@ -1,20 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
 import InputComponent from "../../component/formInput";
-//import SaveButton from "../../component/saveButton";
+import MyModal from "../../component/myModal";
+import SaveButton from "../../component/saveButton";
 
 import styles from "./styles.module.css";
 
 function CreateEmployee() {
-	const regexName = /^[a-zA-ZÀ-ÖØ-öø-ÿ,.\-\s]+$/;
-	const regexStreet = /^[a-zA-ZÀ-ÖØ-öø-ÿ0-9,.\-\s]+$/;
-	const regexZip = /^\[0-9]{5}[-\s]?(?:\d{4})?$/;
-	const errorMessageName = "please use authorized characters only (A-Z ,.-)";
-	const errorMessageZip = "please use only 5 or 5-4 digits only";
-	const errorMessageStreet =
-		"please use authorized characters only (A-Z ,.- 0-9)";
+	const newEmployee = useSelector((state) => state.newEmployee);
+	const [isSaveClickable, setIsSaveClickable] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(true);
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+	};
 
-	//const newEmployee = useSelector((state) => state.newEmployee);
+	useEffect(() => {
+		const allValuesNonNull = Object.values(newEmployee).every(
+			(value) => value !== null
+		);
+		if (allValuesNonNull) {
+			setIsSaveClickable(true);
+		}
+	}, [newEmployee]);
+
+	const regexName = /^[a-zA-ZÀ-ÖØ-öø-ÿ,.\-\s]{1,}$/;
+	const regexStreet = /^[a-zA-ZÀ-ÖØ-öø-ÿ0-9,.\-\s]{1,}$/;
+	const regexZip = /^[0-9]{5}$/;
+	const errorMessageName =
+		"please use authorized characters only (A-Z ,.-), don't leave empty";
+	const errorMessageZip = "please use only digits";
+	const errorMessageStreet =
+		"please use authorized characters only (A-Z ,.- 0-9), don't leave empty";
 
 	return (
 		<>
@@ -60,7 +77,7 @@ function CreateEmployee() {
 							label={"State"}
 							regex={regexStreet}
 							errorMessage={errorMessageStreet}
-							item={"street"}
+							item={"state"}
 						/>
 					</div>
 					<div className={styles.column100}>
@@ -68,10 +85,21 @@ function CreateEmployee() {
 							label={"ZipCode"}
 							regex={regexZip}
 							errorMessage={errorMessageZip}
-							item={"city"}
+							item={"zipCode"}
 						/>
 					</div>
 				</div>
+			</div>
+			<div className={styles.modalPosition}>
+				<MyModal
+					modalStyle={""}
+					modalTitle={"Title"}
+					titleStyle={""}
+					modalMessage={"Message"}
+					messageStyle={""}
+					isModalOpen={isModalOpen}
+					closeModal={handleCloseModal}
+				/>
 			</div>
 			<div className={styles.container}>
 				<div className={styles.column50}>
@@ -80,13 +108,13 @@ function CreateEmployee() {
 							label={"Department"}
 							regex={regexName}
 							errorMessage={errorMessageName}
-							item={"firstName"}
+							item={"department"}
 						/>
 					</div>
 				</div>
 				<div className={styles.column50}>
 					<div className={styles.column100}>
-						{/*<SaveButton label={"SAVE"} />*/}
+						<SaveButton label={"SAVE"} isClickable={isSaveClickable} />
 					</div>
 				</div>
 			</div>

@@ -1,20 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import languageReducer from "../features/Slice/language";
-import currentPathSliceReducer from "../features/Slice/currentPath";
-import employeesListReducer, {
-	periodicDataFetching,
-} from "../features/Slice/employeesList";
-import newEmployeeReducer from "../features/Slice/newEmployee";
-import dateReducer from "../features/Slice/date";
+import currentPathSliceReducer from "../slice/currentPath";
+import employeesListReducer from "../slice/employeesList";
+import newEmployeeReducer from "../slice/newEmployee";
+import modalDataReducer from "../slice/modalData";
+import languageReducer from "../slice/language";
+import dateReducer from "../slice/date";
+
+import { periodicDataFetching } from "../slice/employeesList";
 
 const store = configureStore({
 	reducer: {
 		employeesList: employeesListReducer,
 		newEmployee: newEmployeeReducer,
+		currentPath: currentPathSliceReducer,
+		modal: modalDataReducer,
 		language: languageReducer,
 		date: dateReducer,
-		currentPath: currentPathSliceReducer,
 	},
 });
 

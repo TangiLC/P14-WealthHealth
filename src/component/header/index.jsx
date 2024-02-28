@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setPath } from "../../features/Slice/currentPath";
+import { setPath } from "../../slice/currentPath";
 import StatusIcon from "../statusIcon";
 import { FaUsers, FaUserPlus } from "react-icons/fa6";
 import whLogo from "../../assets/images/WH_logo.png";

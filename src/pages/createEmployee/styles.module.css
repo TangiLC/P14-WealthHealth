@@ -37,3 +37,7 @@
 	background-color: #ececa3;
 	border-radius: 6px;
 }
+
+.modalPosition {
+	position: relative;
+}

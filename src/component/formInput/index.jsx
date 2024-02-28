@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateField } from "../../features/Slice/newEmployee";
+import { updateField } from "../../slice/newEmployee";
 
 import styles from "./styles.module.css";
 
@@ -11,9 +11,8 @@ const InputComponent = ({ label, regex, errorMessage, item }) => {
 
 	const handleChange = (e) => {
 		const { value } = e.target;
-
 		setInputValue(value);
-		if (!regex.test(value) && value.length !== 0) {
+		if (!regex.test(value) ) {
 			setShowErrorMessage(true);
 			dispatch(updateField({ field: item, value: "" }));
 		} else {
