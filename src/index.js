@@ -5,9 +5,9 @@ import { Provider } from "react-redux";
 
 import Header from "./component/header";
 //import Footer from "./component/footer/footer";
-import Home from "./pages/Home";
-import ShowTable from "./pages/ShowTable";
-import CreateEmployee from "./pages/CreateEmployee";
+import Home from "./pages/home/index";
+import ViewTable from "./pages/viewTable/index";
+import CreateEmployee from "./pages/createEmployee/index";
 import store from "./utils/store";
 
 //import "./styles/style.css";
@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 				<Header />
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/table" element={<ShowTable />} />
+					<Route path="/view" element={<ViewTable />} />
 					<Route path="/create" element={<CreateEmployee />} />
 				</Routes>
 				{/*<Footer />*/}

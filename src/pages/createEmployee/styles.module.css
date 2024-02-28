@@ -1,0 +1,39 @@
+.container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+.column50 {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 1rem;
+	box-sizing: border-box;
+}
+.column100 {
+	width: 100%;
+}
+
+@media only screen and (min-width: 955px) {
+	.column50 {
+		width: 50%;
+	}
+}
+.addressBorder {
+	position: relative;
+	background-color: beige;
+	border: 1px solid green;
+	border-radius: 6px;
+}
+
+.relativePosTitle {
+	position: absolute;
+	top: -0.8rem;
+	left: 2%;
+	transform: translate(0%, 0%);
+	padding: 5px 20px;
+	background-color: beige;
+	border-radius: 6px;
+}

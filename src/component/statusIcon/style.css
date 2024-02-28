@@ -1,6 +1,8 @@
 .spinner {
 	display: inline-block;
 	animation: spin 1s ease-in-out infinite;
+	transform-origin: 49% 40%;
+	margin: auto;
 }
 @keyframes spin {
 	0% {
@@ -10,4 +12,7 @@
 		transform: rotate(360deg);
 	}
 }
-
+.message {
+	font-family: "DotGothic16", sans-serif;
+	font-size: .8rem;
+}
