@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import InputComponent from "../../component/formInput";
+import SaveButton from "../../component/saveButton";
 
 import styles from "./styles.module.css";
 
 function CreateEmployee() {
-	const regexName = /^[a-zA-ZÀ-ÖØ-öø-ÿ,.-]+$/;
+	const regexName = /^[a-zA-ZÀ-ÖØ-öø-ÿ,.\-\s]+$/;
 	const regexStreet = /^[a-zA-ZÀ-ÖØ-öø-ÿ0-9,.\-\s]+$/;
 	const regexZip = /^\[0-9]{5}[-\s]?(?:\d{4})?$/;
 	const errorMessageName = "please use authorized characters only (A-Z ,.-)";
@@ -13,8 +14,8 @@ function CreateEmployee() {
 	const errorMessageStreet =
 		"please use authorized characters only (A-Z ,.- 0-9)";
 
-	const newEmployee = useSelector((state) => state.newEmployee);
-	//{ label, regex, errorMessage, target }
+	//const newEmployee = useSelector((state) => state.newEmployee);
+
 	return (
 		<>
 			<div className={styles.container}>
@@ -36,7 +37,7 @@ function CreateEmployee() {
 						/>
 					</div>
 				</div>
-				<div className={`${styles.column50} ${styles.addressBorder}`} >
+				<div className={`${styles.column50} ${styles.addressBorder}`}>
 					<div className={styles.relativePosTitle}>Address</div>
 					<div className={styles.column100}>
 						<InputComponent
@@ -85,12 +86,7 @@ function CreateEmployee() {
 				</div>
 				<div className={styles.column50}>
 					<div className={styles.column100}>
-						<InputComponent
-							label={"SAVE"}
-							regex={regexStreet}
-							errorMessage={errorMessageStreet}
-							item={"street"}
-						/>
+						{/*<SaveButton label={"SAVE"} />*/}
 					</div>
 				</div>
 			</div>
