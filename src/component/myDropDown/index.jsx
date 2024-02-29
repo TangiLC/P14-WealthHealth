@@ -108,7 +108,7 @@ const DropDownComponent = ({
 			defaultDropDownStyle.borderRadius,
 			"right"
 		),
-		maxHeight: "15dvh",
+		maxHeight: "16dvh",
 		lineHeight: "1.5rem",
 		...dropdownListStyle,
 		position: "absolute",

@@ -1,0 +1,12 @@
+{
+	"en": {
+		"view": "View",
+		"create": "Create",
+		"hrnet": "Employees files managment App"
+	},
+	"fr": {
+		"view": "Voir",
+		"create": "Créér",
+		"hrnet": "App de gestion des dossiers employés"
+	}
+}

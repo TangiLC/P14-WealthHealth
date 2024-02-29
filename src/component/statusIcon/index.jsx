@@ -9,30 +9,31 @@ function StatusIcon({ status, error }) {
 	useEffect(() => {
 		setCurrentStatus(status);
 	}, [status]);
-	let iconVal={
-	icon : null,
-	iconColor : null,
-	isSpinning : false,
-	message :null,}
+	let iconVal = {
+		icon: null,
+		iconColor: null,
+		isSpinning: false,
+		message: null,
+	};
 
 	switch (currentStatus) {
 		case "loading":
 			iconVal.icon = <ImSpinner2 />;
 			iconVal.iconColor = "#ff8c00";
 			iconVal.isSpinning = true;
-			iconVal.message ='loading...'
+			iconVal.message = "loading...";
 			break;
 		case "failed":
 			iconVal.icon = <ImBlocked />;
 			iconVal.iconColor = "#ff4500";
 			iconVal.isSpinning = false;
-			iconVal.message ='error :'
+			iconVal.message = "error :";
 			break;
 		case "success":
 			iconVal.icon = <ImEllo />;
 			iconVal.iconColor = "#32cd32";
 			iconVal.isSpinning = false;
-			iconVal.message ='data loaded sucessfully'
+			iconVal.message = "data loaded sucessfully";
 			break;
 		default:
 			iconVal.icon = <ImShocked />;
@@ -53,7 +54,8 @@ function StatusIcon({ status, error }) {
 				{iconVal.icon}
 			</div>
 			<div className="message">
-				{iconVal.message}<br/>
+				{iconVal.message}
+				<br />
 				{error}
 			</div>
 		</>

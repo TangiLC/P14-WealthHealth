@@ -5,9 +5,39 @@
 		"regexZip": "^[0-9]{5}$"
 	},
 	"en": {
+		"labels": {
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"dateOfBirth": "Date of Birth",
+			"startDate": "Start Date",
+			"department": "Department",
+			"street": "Street",
+			"city": "City",
+			"zipCode": "ZipCode",
+			"state": "State",
+			"address": "Address",
+			"save": "Save"
+		},
 		"errorMessageName": "please use authorized characters only (A-Z ,.-), don't leave empty",
 		"errorMessageZip": "please use only digits",
-		"errorMessageStreet": "please use authorized characters only (A-Z ,.- 0-9), don't leave empty",
-		"errorEmptyMessage": "please select an item"
+		"errorMessageStreet": "please use authorized characters only (A-Z ,.- 0-9), don't leave empty"
+	},
+	"fr": {
+		"labels": {
+			"firstName": "Prénom",
+			"lastName": "Nom",
+			"dateOfBirth": "Date de naissance",
+			"startDate": "Date d'embauche",
+			"department": "Départment",
+			"street": "Rue",
+			"city": "Ville",
+			"zipCode": "Code Postal",
+			"state": "État",
+			"address": "Adresse",
+			"save": "Enregistrer"
+		},
+		"errorMessageName": "merci d'utiliser les caractères autorisés (A-Z ,.-), ne pas laisser vide",
+		"errorMessageZip": "merci de n'utiliser que des chiffres",
+		"errorMessageStreet": "erci d'utiliser les caractères autorisés (A-Z ,.- 0-9), ne pas laisser vide"
 	}
 }
