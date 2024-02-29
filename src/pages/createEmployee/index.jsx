@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateField } from "../../slice/newEmployee";
 
 import InputComponent from "../../component/formInput";
-import DropDownComponent from "../../component/formDropDown";
+import DropDownComponent from "../../component/myDropDown";
 import MyModal from "../../component/myModal";
 import SaveButton from "../../component/saveButton";
 
@@ -85,11 +85,10 @@ function CreateEmployee() {
 					<div className={styles.column100}>
 						<DropDownComponent
 							label={"State"}
-							selectMessage={"State..."}
+							placeholder={"State..."}
 							list={statesList}
-							errorMessage={data[language].errorEmptyMessage}
 							handleChange={(value) => handleChange("state", value)}
-						/>
+						/><div>&nbsp;</div>
 					</div>
 					<div className={styles.column100}>
 						<InputComponent
@@ -117,9 +116,8 @@ function CreateEmployee() {
 					<div className={styles.column100}>
 						<DropDownComponent
 							label={"Department"}
-							selectMessage={"Departments..."}
+							placeholder={"Departments..."}
 							list={departmentsList}
-							errorMessage={data[language].errorEmptyMessage}
 							handleChange={(value) => handleChange("department", value)}
 						/>
 					</div>
