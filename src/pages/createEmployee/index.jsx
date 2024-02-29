@@ -8,14 +8,16 @@ import MyModal from "../../component/myModal";
 import SaveButton from "../../component/saveButton";
 
 import styles from "./styles.module.css";
+import data from "./data.json";
 import statesData from "../../assets/lists/states.json";
 import departmentsData from "../../assets/lists/departments.json";
 
 function CreateEmployee() {
 	const dispatch = useDispatch();
 	const newEmployee = useSelector((state) => state.newEmployee);
+	const language = useSelector((state) => state.language);
 	const [isSaveClickable, setIsSaveClickable] = useState(false);
-	const [isModalOpen, setIsModalOpen] = useState(true);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const statesList = statesData.states.map((state) => state.fullName);
 	const departmentsList = departmentsData.departments;
@@ -27,6 +29,11 @@ function CreateEmployee() {
 		dispatch(updateField({ field, value }));
 	};
 
+	const handleSave = () => {
+		console.log("SAVE");
+		setIsModalOpen(true);
+	};
+
 	useEffect(() => {
 		const allValuesNonNull = Object.values(newEmployee).every(
 			(value) => value !== null
@@ -36,16 +43,6 @@ function CreateEmployee() {
 		}
 	}, [newEmployee]);
 
-	const regexName = /^[a-zA-ZÀ-ÖØ-öø-ÿ,.\-\s]{1,}$/;
-	const regexStreet = /^[a-zA-ZÀ-ÖØ-öø-ÿ0-9,.\-\s]{1,}$/;
-	const regexZip = /^[0-9]{5}$/;
-	const errorMessageName =
-		"please use authorized characters only (A-Z ,.-), don't leave empty";
-	const errorMessageZip = "please use only digits";
-	const errorMessageStreet =
-		"please use authorized characters only (A-Z ,.- 0-9), don't leave empty";
-	const errorEmptyMessage = "please select an item";
-
 	return (
 		<>
 			<div className={styles.container}>
@@ -53,16 +50,16 @@ function CreateEmployee() {
 					<div className={styles.column100}>
 						<InputComponent
 							label={"First Name"}
-							regex={regexName}
-							errorMessage={errorMessageName}
+							regex={new RegExp(data.regex.regexName)}
+							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("firstName", value)}
 						/>
 					</div>
 					<div className={styles.column100}>
 						<InputComponent
 							label={"Last Name"}
-							regex={regexName}
-							errorMessage={errorMessageName}
+							regex={new RegExp(data.regex.regexName)}
+							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("lastName", value)}
 						/>
 					</div>
@@ -72,16 +69,16 @@ function CreateEmployee() {
 					<div className={styles.column100}>
 						<InputComponent
 							label={"Street"}
-							regex={regexStreet}
-							errorMessage={errorMessageStreet}
+							regex={new RegExp(data.regex.regexStreet)}
+							errorMessage={data[language].errorMessageStreet}
 							handleChange={(value) => handleChange("street", value)}
 						/>
 					</div>
 					<div className={styles.column100}>
 						<InputComponent
 							label={"City"}
-							regex={regexName}
-							errorMessage={errorMessageName}
+							regex={new RegExp(data.regex.regexName)}
+							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("city", value)}
 						/>
 					</div>
@@ -90,15 +87,15 @@ function CreateEmployee() {
 							label={"State"}
 							selectMessage={"State..."}
 							list={statesList}
-							errorMessage={errorEmptyMessage}
+							errorMessage={data[language].errorEmptyMessage}
 							handleChange={(value) => handleChange("state", value)}
 						/>
 					</div>
 					<div className={styles.column100}>
 						<InputComponent
 							label={"ZipCode"}
-							regex={regexZip}
-							errorMessage={errorMessageZip}
+							regex={new RegExp(data.regex.regexZip)}
+							errorMessage={data[language].errorMessageZip}
 							handleChange={(value) => handleChange("zipCode", value)}
 						/>
 					</div>
@@ -122,14 +119,18 @@ function CreateEmployee() {
 							label={"Department"}
 							selectMessage={"Departments..."}
 							list={departmentsList}
-							errorMessage={errorEmptyMessage}
+							errorMessage={data[language].errorEmptyMessage}
 							handleChange={(value) => handleChange("department", value)}
 						/>
 					</div>
 				</div>
 				<div className={styles.column50}>
 					<div className={styles.column100}>
-						<SaveButton label={"SAVE"} isClickable={isSaveClickable} />
+						<SaveButton
+							label={"SAVE"}
+							isClickable={isSaveClickable}
+							handleSave={handleSave}
+						/>
 					</div>
 				</div>
 			</div>

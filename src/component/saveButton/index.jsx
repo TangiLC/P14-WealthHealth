@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setPath } from "../../slice/currentPath";
+import React from "react";
 import { FaUserPlus } from "react-icons/fa6";
 
 import styles from "./styles.module.css";
 
-function SaveButton({ label, isClickable }) {
-	const newEmployee = useSelector((state) => state.newEmployee);
+function SaveButton({ label, isClickable, handleSave }) {
+	const handleClick = () => {
+		handleSave();
+	};
 
 	return (
 		<div style={{ display: "flex", justifyContent: "center" }}>
@@ -17,7 +16,10 @@ function SaveButton({ label, isClickable }) {
 					&nbsp;{label}
 				</div>
 			) : (
-				<div className={`${styles.button} ${styles.active}`}>
+				<div
+					className={`${styles.button} ${styles.active}`}
+					onClick={handleClick}
+				>
 					<FaUserPlus />
 					&nbsp;{label}
 				</div>

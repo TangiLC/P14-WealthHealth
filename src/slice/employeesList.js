@@ -41,11 +41,14 @@ export const fetchEmployeesList = () => async (dispatch) => {
 	}
 };
 
-export const periodicDataFetching = () => async (dispatch) => {
-    dispatch(fetchEmployeesList());
-    setInterval(async () => {
-        dispatch(fetchEmployeesList());
-    }, 100000);
+export const periodicDataFetching = () => async (dispatch, getState) => {
+	const currentState = getState().employeesList;
+
+	let intervalTime = currentState.status === "success" ? 100000 : 20000;
+	dispatch(fetchEmployeesList());
+	setInterval(async () => {
+		dispatch(fetchEmployeesList());
+	}, intervalTime);
 };
 
 export default employeesListSlice.reducer;

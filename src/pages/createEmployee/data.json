@@ -1,0 +1,13 @@
+{
+	"regex": {
+		"regexName": "^[a-zA-ZÀ-ÖØ-öø-ÿ,.\\-\\s]{1,}$",
+		"regexStreet": "^[a-zA-ZÀ-ÖØ-öø-ÿ0-9,.\\-\\s]{1,}$",
+		"regexZip": "^[0-9]{5}$"
+	},
+	"en": {
+		"errorMessageName": "please use authorized characters only (A-Z ,.-), don't leave empty",
+		"errorMessageZip": "please use only digits",
+		"errorMessageStreet": "please use authorized characters only (A-Z ,.- 0-9), don't leave empty",
+		"errorEmptyMessage": "please select an item"
+	}
+}
