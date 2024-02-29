@@ -72,7 +72,7 @@ const MyModal = ({
 
 	return (
 		<>
-			<div style={defaultOverlayStyle}></div>
+			<div style={defaultOverlayStyle} onClick={closeModal}></div>
 			<div className="modal" style={defaultModalStyle}>
 				<div style={defaultCloseOffset}>
 					<div

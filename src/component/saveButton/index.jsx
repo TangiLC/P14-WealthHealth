@@ -10,7 +10,7 @@ function SaveButton({ label, isClickable }) {
 	const newEmployee = useSelector((state) => state.newEmployee);
 
 	return (
-		<>
+		<div style={{ display: "flex", justifyContent: "center" }}>
 			{!isClickable ? (
 				<div className={`${styles.button} ${styles.inactive}`}>
 					<FaUserPlus />
@@ -22,7 +22,7 @@ function SaveButton({ label, isClickable }) {
 					&nbsp;{label}
 				</div>
 			)}
-		</>
+		</div>
 	);
 }
 

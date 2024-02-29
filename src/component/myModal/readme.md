@@ -20,7 +20,9 @@ _top, left, transform_ pour la position - _border, borderRadius, padding, margin
 **messageStyle** s'occupe du style du contenu de la modale (à personnaliser avec _color, fontSize, fontWeight, backgroundColor..._)
 
 **modalMessage** est le texte à afficher dans la modale
+
 **isModalOpen** est un booléen contrôlé par l'élément parent qui permet de définir si la modale est ouverte ou non.
+
 **closeModal** est la fonction de rappel lié au booléen _isModalOpen_
 
 Dans l'élément parent, il faut importer le hook useState de React, puis définir initialement
@@ -30,19 +32,19 @@ Dans l'élément parent, il faut importer le hook useState de React, puis défin
     const handleCloseModal=()=>{setIsModalOpen(false)};
 ```
 
-Puis insérer le composant MyModal à l'endroit souhaité avec au minimum :
+Puis insérer le composant MyModal à l'endroit souhaité, soit sans personnalisation :
 
 ```bash
     <MyModal modalTitle={""} modalMessage={""}
-		isModalOpen={isModalOpen} closeModal={handleCloseModal} />
+	isModalOpen={isModalOpen} closeModal={handleCloseModal} />
 ```
 
-Et pour l'ensemble des personnalisations optionnelles:
+soit avec l'ensemble des personnalisations optionnelles:
 
 ```bash
     <MyModal modalStyle={...} overlayStyle={...}
-        closeStyle={...} closeOffsetStyle={...} closeContent={""}
-		modalTitle={""} titleStyle={...}
-		modalMessage={""} messageStyle={""}
-		isModalOpen={isModalOpen} closeModal={handleCloseModal} />
+    closeStyle={...} closeOffsetStyle={...} closeContent={""}
+	modalTitle={""} titleStyle={...}
+	modalMessage={""} messageStyle={""}
+	isModalOpen={isModalOpen} closeModal={handleCloseModal} />
 ```
