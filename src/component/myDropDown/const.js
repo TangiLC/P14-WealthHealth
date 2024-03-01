@@ -23,7 +23,7 @@ export const chevronClosed = {
 	transition: "transform 0.3s",
 };
 
-export const getDefaultDropDownStyle = (selectStyle) => {
+export const addDropDownDefaultStyle = (selectStyle) => {
 	return {
 		width: "95%",
 		padding: "8px 4px",
@@ -36,14 +36,14 @@ export const getDefaultDropDownStyle = (selectStyle) => {
 	};
 };
 
-export const getDefaultLabelStyle = (labelStyle) => {
+export const addLabelDefaultStyle = (labelStyle) => {
 	return {
 		margin: "3px",
 		...labelStyle,
 	};
 };
 
-export const getDefaultFocusedItem = (focusedItemStyle) => {
+export const addFocusedDefaultStyle = (focusedItemStyle) => {
 	return {
 		backgroundColor: "lightgrey",
 		color: "white",

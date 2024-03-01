@@ -3,9 +3,9 @@ import { extractBorderRadius, setNewFocus } from "./utils";
 import {
 	chevronOpen,
 	chevronClosed,
-	getDefaultDropDownStyle,
-	getDefaultLabelStyle,
-	getDefaultFocusedItem,
+	addDropDownDefaultStyle,
+	addFocusedDefaultStyle,
+	addLabelDefaultStyle,
 } from "./const";
 
 const DropDownComponent = ({
@@ -14,9 +14,9 @@ const DropDownComponent = ({
 	placeholder,
 	arrow,
 	list,
-	selectStyle,
+	dropdownStyle,
 	dropdownListStyle,
-	focusedItemStyle,
+	focusedStyle,
 	handleChange,
 }) => {
 	const [selectedItem, setSelectedItem] = useState(null);
@@ -88,24 +88,24 @@ const DropDownComponent = ({
 		}
 	}, [focusedIndex]);
 
-	const dropArrow = arrow || "▼";
-	const defaultLabelStyle = getDefaultLabelStyle(labelStyle);
-	const defaultDropDownStyle = getDefaultDropDownStyle(selectStyle);
-	const defaultFocusedItem = getDefaultFocusedItem(focusedItemStyle);
+	const customDropArrow = arrow || "▼";
+	const customLabelStyle = addLabelDefaultStyle(labelStyle);
+	const customDropdownStyle = addDropDownDefaultStyle(dropdownStyle);
+	const customFocusedStyle = addFocusedDefaultStyle(focusedStyle);
 
-	const defaultDropdownListStyle = {
-		backgroundColor: defaultDropDownStyle.backgroundColor,
+	const customDropdownListStyle = {
+		backgroundColor: customDropdownStyle.backgroundColor,
 		width: dropdownWidth,
-		padding: defaultDropDownStyle.padding,
-		margin: defaultDropDownStyle.margin,
+		padding: customDropdownStyle.padding,
+		margin: customDropdownStyle.margin,
 		left: dropdownPosition,
-		border: defaultDropDownStyle.border,
+		border: customDropdownStyle.border,
 		borderBottomLeftRadius: extractBorderRadius(
-			defaultDropDownStyle.borderRadius,
+			customDropdownStyle.borderRadius,
 			"left"
 		),
 		borderBottomRightRadius: extractBorderRadius(
-			defaultDropDownStyle.borderRadius,
+			customDropdownStyle.borderRadius,
 			"right"
 		),
 		maxHeight: "16dvh",
@@ -120,10 +120,10 @@ const DropDownComponent = ({
 
 	return (
 		<>
-			<div style={defaultLabelStyle}>
+			<div style={customLabelStyle}>
 				<label>{label}</label>
 			</div>
-			<div style={defaultDropDownStyle} ref={dropdownRef}>
+			<div style={customDropdownStyle} ref={dropdownRef}>
 				<div
 					className="selected-item"
 					style={{ position: "relative" }}
@@ -132,12 +132,11 @@ const DropDownComponent = ({
 					tabIndex={0}
 				>
 					{selectedItem ? selectedItem : placeholder}
-					<span style={isOpen ? chevronOpen : chevronClosed}>{dropArrow}</span>
+					<span style={isOpen ? chevronOpen : chevronClosed}>
+						{customDropArrow}
+					</span>
 					{isOpen && (
-						<div
-							style={defaultDropdownListStyle}
-							className="dropdown-container"
-						>
+						<div style={customDropdownListStyle} className="dropdown-container">
 							{list.map((item, index) => (
 								<div
 									className="dropdown-item"
@@ -146,7 +145,7 @@ const DropDownComponent = ({
 									onClick={() => handleItemClick(item)}
 									onMouseOver={() => handleFocus(index)}
 									onFocus={() => handleFocus(index)}
-									style={focusedIndex === index ? defaultFocusedItem : null}
+									style={focusedIndex === index ? customFocusedStyle : null}
 									ref={focusedIndex === index ? focusedItemRef : null}
 								>
 									{item}
