@@ -41,3 +41,11 @@
 .modalPosition {
 	position: relative;
 }
+
+.warning {
+	color: red;
+}
+
+.hidden {
+	color: transparent;
+}

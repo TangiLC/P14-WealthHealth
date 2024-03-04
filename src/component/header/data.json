@@ -8,5 +8,10 @@
 		"view": "Voir",
 		"create": "Créér",
 		"hrnet": "App de gestion des dossiers employés"
+	},
+	"es": {
+		"view": "Ver",
+		"create": "Crear",
+		"hrnet": "Aplicación de gestión de archivos de empleados"
 	}
 }

@@ -3,14 +3,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setPath } from "../../slice/currentPath";
 import StatusIcon from "../statusIcon";
+import LanguageSelect from "../languageSelect";
+import { getWeekDay } from "../../utils/utils";
 import { FaUsers, FaUserPlus } from "react-icons/fa6";
 import whLogo from "../../assets/images/WH_logo.png";
 
+import data from "./data.json";
 import styles from "./styles.module.css";
 
 function Header() {
 	const employees = useSelector((state) => state.employeesList);
+	const language = useSelector((state) => state.language);
 	const today = useSelector((state) => state.date);
+	const localToday = new Date(today).toLocaleDateString(language, {
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+	});
 	const status = employees.status; //"loading"/"failed"/"success"
 	const error = employees.error;
 	const currentPath = useSelector((state) => state.currentPath);
@@ -58,6 +67,7 @@ function Header() {
 					</div>
 					<div className={styles.column70}>
 						<h1>HR Net</h1>
+						{data[language].hrnet}
 					</div>
 				</div>
 				<div className={styles.column40}>
@@ -70,7 +80,7 @@ function Header() {
 								}}
 							>
 								<FaUsers />
-								&nbsp;View
+								&nbsp;{data[language].view}
 							</div>
 						) : null}
 						{isCreateButton ? (
@@ -81,17 +91,24 @@ function Header() {
 								}}
 							>
 								<FaUserPlus />
-								&nbsp;Create
+								&nbsp;{data[language].create}
 							</div>
 						) : null}
 					</div>
 					<div className={styles.column30}>
-						<div className={styles.date}>{today}</div>
+						<div className={styles.date}>{localToday}</div>
 						<div>
 							<StatusIcon status={status} error={error} />
 						</div>
 					</div>
-					<div className={styles.column20}>Lg</div>
+					<div className={styles.column20}>
+						<div className={styles.date}>
+							{getWeekDay(today, language, false)}
+						</div>
+						<div>
+							<LanguageSelect />
+						</div>
+					</div>
 				</div>
 			</div>
 		</>

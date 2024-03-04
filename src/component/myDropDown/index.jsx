@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { extractBorderRadius, setNewFocus } from "./utils";
 import {
-	chevronOpen,
-	chevronClosed,
+	addChevronOpenDefaultStyle,
+	addChevronClosedDefaultStyle,
 	addDropDownDefaultStyle,
+	addDropDownErrorStyle,
 	addFocusedDefaultStyle,
 	addLabelDefaultStyle,
 } from "./const";
@@ -13,11 +14,14 @@ const DropDownComponent = ({
 	labelStyle,
 	placeholder,
 	arrow,
+	arrowStyle,
 	list,
 	dropdownStyle,
+	dropdownErrorStyle,
 	dropdownListStyle,
 	focusedStyle,
 	handleChange,
+	isError,
 }) => {
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [isOpen, setIsOpen] = useState(false);
@@ -91,10 +95,14 @@ const DropDownComponent = ({
 	const customDropArrow = arrow || "▼";
 	const customLabelStyle = addLabelDefaultStyle(labelStyle);
 	const customDropdownStyle = addDropDownDefaultStyle(dropdownStyle);
+	const customDropdownErrorStyle = addDropDownErrorStyle(dropdownErrorStyle);
 	const customFocusedStyle = addFocusedDefaultStyle(focusedStyle);
+	const customChevronOpen = addChevronOpenDefaultStyle(arrowStyle);
+	const customChevronClose = addChevronClosedDefaultStyle(arrowStyle);
 
 	const customDropdownListStyle = {
 		backgroundColor: customDropdownStyle.backgroundColor,
+		color:"black",
 		width: dropdownWidth,
 		padding: customDropdownStyle.padding,
 		margin: customDropdownStyle.margin,
@@ -123,16 +131,23 @@ const DropDownComponent = ({
 			<div style={customLabelStyle}>
 				<label>{label}</label>
 			</div>
-			<div style={customDropdownStyle} ref={dropdownRef}>
+			<div
+				style={isError ? customDropdownErrorStyle : customDropdownStyle}
+				ref={dropdownRef}
+			>
 				<div
 					className="selected-item"
-					style={{ position: "relative" }}
+					style={
+						selectedItem
+							? { position: "relative" }
+							: { position: "relative", color: "grey" }
+					}
 					onClick={() => setIsOpen(!isOpen)}
 					onKeyDown={handleKeyDown}
 					tabIndex={0}
 				>
 					{selectedItem ? selectedItem : placeholder}
-					<span style={isOpen ? chevronOpen : chevronClosed}>
+					<span style={isOpen ? customChevronOpen : customChevronClose}>
 						{customDropArrow}
 					</span>
 					{isOpen && (

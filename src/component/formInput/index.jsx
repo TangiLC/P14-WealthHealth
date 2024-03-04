@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 
 import styles from "./styles.module.css";
 
-const InputComponent = ({ label, regex, errorMessage, handleChange }) => {
-	
+const InputComponent = ({
+	label,
+	regex,
+	errorMessage,
+	handleChange,
+	isError,
+}) => {
 	const [inputValue, setInputValue] = useState("");
-	const [showErrorMessage, setShowErrorMessage] = useState(false);
+	const [showErrorMessage, setShowErrorMessage] = useState(isError);
 
 	const handleInputChange = (e) => {
 		const value = e.target.value;
@@ -17,6 +22,10 @@ const InputComponent = ({ label, regex, errorMessage, handleChange }) => {
 			setShowErrorMessage(true);
 		}
 	};
+
+	useEffect(() => {
+		setShowErrorMessage(isError);
+	}, [isError]);
 
 	return (
 		<div>

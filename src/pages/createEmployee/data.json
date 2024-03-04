@@ -20,7 +20,8 @@
 		},
 		"errorMessageName": "please use authorized characters only (A-Z ,.-), don't leave empty",
 		"errorMessageZip": "please use only digits",
-		"errorMessageStreet": "please use authorized characters only (A-Z ,.- 0-9), don't leave empty"
+		"errorMessageStreet": "please use authorized characters only (A-Z ,.- 0-9), don't leave empty",
+		"errorMessageEmpty": "please select an item"
 	},
 	"fr": {
 		"labels": {
@@ -28,7 +29,7 @@
 			"lastName": "Nom",
 			"dateOfBirth": "Date de naissance",
 			"startDate": "Date d'embauche",
-			"department": "Départment",
+			"department": "Département",
 			"street": "Rue",
 			"city": "Ville",
 			"zipCode": "Code Postal",
@@ -38,6 +39,26 @@
 		},
 		"errorMessageName": "merci d'utiliser les caractères autorisés (A-Z ,.-), ne pas laisser vide",
 		"errorMessageZip": "merci de n'utiliser que des chiffres",
-		"errorMessageStreet": "erci d'utiliser les caractères autorisés (A-Z ,.- 0-9), ne pas laisser vide"
+		"errorMessageStreet": "merci d'utiliser les caractères autorisés (A-Z ,.- 0-9), ne pas laisser vide",
+		"errorMessageEmpty": "merci de sélectionner un élément"
+	},
+	"es": {
+		"labels": {
+			"firstName": "Nombre",
+			"lastName": "Apellido",
+			"dateOfBirth": "Fecha de nacimiento",
+			"startDate": "Fecha de inicio",
+			"department": "Departamento",
+			"street": "Calle",
+			"city": "Ciudad",
+			"zipCode": "Código postal",
+			"state": "Estado",
+			"address": "Dirección",
+			"save": "Guardar"
+		},
+		"errorMessageName": "utilice caracteres permitidos (A-Z ,.-), no deje en blanco por favor",
+		"errorMessageZip": "utilice solo números  por favor",
+		"errorMessageStreet": "utilice caracteres permitidos (A-Z ,.- 0-9), no deje en blanco  por favor",
+		"errorMessageEmpty": "seleccione un elemento  por favor"
 	}
 }

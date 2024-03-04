@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateField } from "../../slice/newEmployee";
 
@@ -17,7 +17,9 @@ function CreateEmployee() {
 	const newEmployee = useSelector((state) => state.newEmployee);
 	const language = useSelector((state) => state.language);
 	const [isSaveClickable, setIsSaveClickable] = useState(false);
+	const [isCheckEmpty, setIsCheckEmpty] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const isEmpty = useRef(false);
 
 	const statesList = statesData.states.map((state) => state.fullName);
 	const departmentsList = departmentsData.departments;
@@ -30,18 +32,43 @@ function CreateEmployee() {
 	};
 
 	const handleSave = () => {
-		console.log("SAVE");
-		setIsModalOpen(true);
+		if (isSaveClickable) {
+			console.log("SAVE");
+			setIsModalOpen(true);
+		} else {
+			setIsCheckEmpty(true);
+		}
 	};
 
 	useEffect(() => {
-		const allValuesNonNull = Object.values(newEmployee).every(
-			(value) => value !== null
-		);
-		if (allValuesNonNull) {
-			setIsSaveClickable(true);
+		if (isCheckEmpty) {
+			const timer = setTimeout(() => {
+				setIsCheckEmpty(false);
+			}, 5000);
+			return () => clearTimeout(timer);
 		}
-	}, [newEmployee]);
+	}, [isCheckEmpty]);
+
+	const dropdownStyle = {
+		labelStyle: { margin: "3px" },
+		dropdownStyle: {
+			width: "95%",
+			padding: "8px 4px",
+			margin: "3px",
+			borderRadius: "4px",
+			border: "1px solid #607c3c",
+		},
+		dropdownErrorStyle: {
+			width: "95%",
+			padding: "8px 4px",
+			margin: "3px",
+			borderRadius: "4px",
+			border: "2px solid darkred",
+			backgroundColor: "darksalmon",
+		},
+		focusedStyle: { backgroundColor: "#f7f7da", color: "#607c3c" },
+		arrowStyle: { color: "#809c13" },
+	};
 
 	return (
 		<>
@@ -49,53 +76,75 @@ function CreateEmployee() {
 				<div className={styles.column50}>
 					<div className={styles.column100}>
 						<InputComponent
-							label={"First Name"}
+							label={data[language].labels.firstName}
 							regex={new RegExp(data.regex.regexName)}
 							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("firstName", value)}
+							isError={isCheckEmpty && newEmployee.firstName === null}
 						/>
 					</div>
 					<div className={styles.column100}>
 						<InputComponent
-							label={"Last Name"}
+							label={data[language].labels.lastName}
 							regex={new RegExp(data.regex.regexName)}
 							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("lastName", value)}
+							isError={isCheckEmpty && newEmployee.lastName === null}
 						/>
 					</div>
 				</div>
 				<div className={`${styles.column50} ${styles.addressBorder}`}>
-					<div className={styles.relativePosTitle}>Address</div>
+					<div className={styles.relativePosTitle}>
+						{data[language].labels.address}
+					</div>
 					<div className={styles.column100}>
 						<InputComponent
-							label={"Street"}
+							label={data[language].labels.street}
 							regex={new RegExp(data.regex.regexStreet)}
 							errorMessage={data[language].errorMessageStreet}
 							handleChange={(value) => handleChange("street", value)}
+							isError={isCheckEmpty && newEmployee.street === null}
 						/>
 					</div>
 					<div className={styles.column100}>
 						<InputComponent
-							label={"City"}
+							label={data[language].labels.city}
 							regex={new RegExp(data.regex.regexName)}
 							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("city", value)}
+							isError={isCheckEmpty && newEmployee.city === null}
 						/>
 					</div>
 					<div className={styles.column100}>
 						<DropDownComponent
-							label={"State"}
-							placeholder={"State..."}
+							label={data[language].labels.state}
+							placeholder={data[language].labels.state + "..."}
 							list={statesList}
 							handleChange={(value) => handleChange("state", value)}
-						/><div>&nbsp;</div>
+							labelStyle={dropdownStyle.labelStyle}
+							dropdownStyle={dropdownStyle.dropdownStyle}
+							dropdownErrorStyle={dropdownStyle.dropdownErrorStyle}
+							focusedStyle={dropdownStyle.focusedStyle}
+							arrowStyle={dropdownStyle.arrowStyle}
+							isError={isCheckEmpty && newEmployee.state === null}
+						/>
+						<div
+							className={
+								isCheckEmpty && newEmployee.state === null
+									? `${styles.warning}`
+									: `${styles.hidden}`
+							}
+						>
+							{data[language].errorMessageEmpty}
+						</div>
 					</div>
 					<div className={styles.column100}>
 						<InputComponent
-							label={"ZipCode"}
+							label={data[language].labels.zipCode}
 							regex={new RegExp(data.regex.regexZip)}
 							errorMessage={data[language].errorMessageZip}
 							handleChange={(value) => handleChange("zipCode", value)}
+							isError={isCheckEmpty && newEmployee.zipCode === null}
 						/>
 					</div>
 				</div>
@@ -115,17 +164,32 @@ function CreateEmployee() {
 				<div className={styles.column50}>
 					<div className={styles.column100}>
 						<DropDownComponent
-							label={"Department"}
-							placeholder={"Departments..."}
+							label={data[language].labels.department}
+							placeholder={data[language].labels.department + "..."}
 							list={departmentsList}
 							handleChange={(value) => handleChange("department", value)}
+							labelStyle={dropdownStyle.labelStyle}
+							dropdownStyle={dropdownStyle.dropdownStyle}
+							dropdownErrorStyle={dropdownStyle.dropdownErrorStyle}
+							focusedStyle={dropdownStyle.focusedStyle}
+							arrowStyle={dropdownStyle.arrowStyle}
+							isError={isCheckEmpty && newEmployee.department === null}
 						/>
+					</div>
+					<div
+						className={
+							isCheckEmpty && newEmployee.department === null
+								? `${styles.warning}`
+								: `${styles.hidden}`
+						}
+					>
+						{data[language].errorMessageEmpty}
 					</div>
 				</div>
 				<div className={styles.column50}>
 					<div className={styles.column100}>
 						<SaveButton
-							label={"SAVE"}
+							label={data[language].labels.save}
 							isClickable={isSaveClickable}
 							handleSave={handleSave}
 						/>

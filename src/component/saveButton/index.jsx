@@ -11,7 +11,10 @@ function SaveButton({ label, isClickable, handleSave }) {
 	return (
 		<div style={{ display: "flex", justifyContent: "center" }}>
 			{!isClickable ? (
-				<div className={`${styles.button} ${styles.inactive}`}>
+				<div
+					className={`${styles.button} ${styles.inactive}`}
+					onClick={handleClick}
+				>
 					<FaUserPlus />
 					&nbsp;{label}
 				</div>

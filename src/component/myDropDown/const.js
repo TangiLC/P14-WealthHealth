@@ -1,37 +1,58 @@
-export const chevronOpen = {
-	display: "inline-block",
-	position: "absolute",
-	top: "50%",
-	right: "5px",
-	width: "10px",
-	height: "10px",
-	lineHeight: "10px",
-	transform: "translateY(-50%) rotate(-180deg)",
-	transformOrigin: "70% 20%",
-	transition: "transform 0.3s",
+export const addChevronOpenDefaultStyle = (arrowStyle) => {
+	return {
+		top: "50%",
+		right: "5px",
+		width: "10px",
+		height: "10px",
+		color: "black",
+		lineHeight: "10px",
+		transform: "translateY(-50%) rotate(-180deg)",
+		transformOrigin: "70% 20%",
+		transition: "transform 0.3s",
+		...arrowStyle,
+		display: "inline-block",
+		position: "absolute",
+	};
 };
-export const chevronClosed = {
-	display: "inline-block",
-	position: "absolute",
-	top: "50%",
-	right: "5px",
-	width: "10px",
-	height: "10px",
-	lineHeight: "10px",
-	transform: "translateY(-50%) rotate(0deg)",
-	transformOrigin: "70% 20%",
-	transition: "transform 0.3s",
+export const addChevronClosedDefaultStyle = (arrowStyle) => {
+	return {
+		top: "50%",
+		right: "5px",
+		width: "10px",
+		height: "10px",
+		color: "black",
+		lineHeight: "10px",
+		transform: "translateY(-50%) rotate(0deg)",
+		transformOrigin: "70% 20%",
+		transition: "transform 0.3s",
+		...arrowStyle,
+		display: "inline-block",
+		position: "absolute",
+	};
 };
 
 export const addDropDownDefaultStyle = (selectStyle) => {
 	return {
-		width: "95%",
-		padding: "8px 4px",
-		margin: "3px",
-		borderRadius: "4px",
-		border: "1px solid #607c3c",
+		width: "auto",
+		padding: "6px",
+		margin: "auto",
+		borderRadius: "6px",
+		border: "1px solid black",
 		backgroundColor: "white",
 		...selectStyle,
+		boxSizing: "border-box",
+	};
+};
+
+export const addDropDownErrorStyle = (errorStyle) => {
+	return {
+		width: "auto",
+		padding: "6px",
+		margin: "auto",
+		borderRadius: "6px",
+		border: "2px solid darkred",
+		backgroundColor: "darksalmon",
+		...errorStyle,
 		boxSizing: "border-box",
 	};
 };
