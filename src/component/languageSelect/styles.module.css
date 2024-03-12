@@ -11,24 +11,36 @@
 	font-size: 1.2rem;
 	font-weight: bold;
 	color: black;
-	text-shadow: 0 0 2px black, 0 0 2px white;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 25;
+}
+
+.miniFlag {
+	width: 25px;
+	height: 25px;
+	background-image: url("./flags.png");
+	background-size: 300%;
+	font-size: 1.2rem;
+	font-weight: "500";
+	color: black;
 	box-sizing: border-box;
 	position: relative;
 	z-index: 25;
 }
 
 .flag-es {
-	background-position: -70px -70px;
+	background-position: -200% -200%;
 }
 
 .flag-fr {
-	background-position: -0px -70px;
+	background-position: 0% -200%;
 }
 
 .flag-en {
-	background-position: -35px 0px;
+	background-position: -100% 0%;
 }
 
 .flag-ge {
-	background-position: -35px -35px;
+	background-position: -100% -100%;
 }

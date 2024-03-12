@@ -60,11 +60,13 @@ const LanguageSelect = () => {
 								<div
 									key={lang.code}
 									onClick={() => selectLang(lang.code)}
-									className={`${styles.flag} ${styles[flagClasses[lang.code]]}`}
+									className={`${styles.miniFlag} ${
+										styles[flagClasses[lang.code]]
+									}`}
 									alt={lang.label}
 									title={lang.label}
 									style={{ textTransform: "capitalize" }}
-								>
+								><br/>
 									{lang.code}
 								</div>
 							);

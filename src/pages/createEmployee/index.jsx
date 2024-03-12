@@ -4,6 +4,7 @@ import { updateField } from "../../slice/newEmployee";
 
 import InputComponent from "../../component/formInput";
 import DropDownComponent from "../../component/myDropDown";
+import DatePickerComponent from "../../component/myDatePicker";
 import MyModal from "../../component/myModal";
 import SaveButton from "../../component/saveButton";
 
@@ -16,6 +17,7 @@ function CreateEmployee() {
 	const dispatch = useDispatch();
 	const newEmployee = useSelector((state) => state.newEmployee);
 	const language = useSelector((state) => state.language);
+	const today = useSelector((state) => state.date);
 	const [isSaveClickable, setIsSaveClickable] = useState(false);
 	const [isCheckEmpty, setIsCheckEmpty] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -90,6 +92,21 @@ function CreateEmployee() {
 							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("lastName", value)}
 							isError={isCheckEmpty && newEmployee.lastName === null}
+						/>
+					</div>
+					<div className={styles.column100}>
+						<DatePickerComponent
+							label={data[language].labels.dateOfBirth}
+							placeholder={data[language].labels.dateFormat}
+							defaultDate={today}
+							dateRange={[-36500,0]}
+							handleChange={(value) => handleChange("dateOfBirth", value)}
+							labelStyle={dropdownStyle.labelStyle}
+							datePickerStyle={dropdownStyle.dropdownStyle}
+							datePickerErrorStyle={dropdownStyle.dropdownErrorStyle}
+							focusedStyle={dropdownStyle.focusedStyle}
+							arrowStyle={dropdownStyle.arrowStyle}
+							isError={isCheckEmpty && newEmployee.state === null}
 						/>
 					</div>
 				</div>
