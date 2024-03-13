@@ -16,56 +16,22 @@ export function extractBorderRadius(borderRadius, side) {
 	return bottomRadius;
 }
 
-export function setNewFocus(event, focusedIndex, list) {
-	switch (event.key) {
-		case "ArrowUp":
-			event.preventDefault();
-			if (focusedIndex > 0) {
-				return focusedIndex - 1;
-			}
-			break;
-		case "ArrowDown":
-			event.preventDefault();
-			if (focusedIndex < list.length - 1) {
-				return focusedIndex + 1;
-			}
-			break;
-		case "Tab":
-			if (event.shiftKey) {
-				event.preventDefault();
-				if (focusedIndex > 0) {
-					return focusedIndex - 1;
-				}
-			} else {
-				event.preventDefault();
-				if (focusedIndex < list.length - 1) {
-					return focusedIndex + 1;
-				}
-			}
-			break;
-		default:
-			if (event.key.length === 1) {
-				const charPressed = event.key.toLowerCase();
-				const index = list.findIndex((item) =>
-					item.toLowerCase().startsWith(charPressed)
-				);
-				if (index !== -1) {
-					return index;
-				}
-			}
-			break;
-	}
-	return focusedIndex;
-}
-
 export function createMonthTable({
 	weekDays,
 	selectDate,
 	onDateClick,
 	focusStyle,
 }) {
-	const daysInMonth = new Date(selectDate.year, selectDate.month + 1, 0).getDate();
-	const firstDayOfMonth = new Date(selectDate.year, selectDate.month, 0).getDay();
+	const daysInMonth = new Date(
+		selectDate.getFullYear(),
+		selectDate.getMonth() + 1,
+		0
+	).getDate();
+	const firstDayOfMonth = new Date(
+		selectDate.getFullYear(),
+		selectDate.getMonth(),
+		0
+	).getDay();
 	const table = [];
 
 	let dayDate = 1 - firstDayOfMonth;
@@ -74,21 +40,49 @@ export function createMonthTable({
 		for (let j = 0; j < 7; j++) {
 			let date;
 			if (dayDate <= 0) {
-				if (selectDate.month === 0) {
-					const daysInPreviousMonth = new Date(selectDate.year - 1, 12, 0).getDate();
-					date = new Date(selectDate.year - 1, 11, daysInPreviousMonth + dayDate);
+				if (selectDate.getMonth() === 0) {
+					const daysInPreviousMonth = new Date(
+						selectDate.getFullYear() - 1,
+						12,
+						0
+					).getDate();
+					date = new Date(
+						selectDate.getFullYear() - 1,
+						11,
+						daysInPreviousMonth + dayDate
+					);
 				} else {
-					const daysInPreviousMonth = new Date(selectDate.year, selectDate.month, 0).getDate();
-					date = new Date(selectDate.year, selectDate.month - 1, daysInPreviousMonth + dayDate);
+					const daysInPreviousMonth = new Date(
+						selectDate.getFullYear(),
+						selectDate.getMonth(),
+						0
+					).getDate();
+					date = new Date(
+						selectDate.getFullYear(),
+						selectDate.getMonth() - 1,
+						daysInPreviousMonth + dayDate
+					);
 				}
 			} else if (dayDate > daysInMonth) {
-				if (selectDate.month === 11) {
-					date = new Date(selectDate.year + 1, 0, dayDate - daysInMonth);
+				if (selectDate.getMonth() === 11) {
+					date = new Date(
+						selectDate.getFullYear() + 1,
+						0,
+						dayDate - daysInMonth
+					);
 				} else {
-					date = new Date(selectDate.year, selectDate.month + 1, dayDate - daysInMonth);
+					date = new Date(
+						selectDate.getFullYear(),
+						selectDate.getMonth() + 1,
+						dayDate - daysInMonth
+					);
 				}
 			} else {
-				date = new Date(selectDate.year, selectDate.month, dayDate);
+				date = new Date(
+					selectDate.getFullYear(),
+					selectDate.getMonth(),
+					dayDate
+				);
 			}
 			week.push({ date, day: dayDate });
 			dayDate++;
@@ -96,11 +90,11 @@ export function createMonthTable({
 		table.push(week);
 	}
 	const isCurrentDay = (dd) => {
-		return dd.getDate() === selectDate.day;
+		return dd.getDate() === selectDate.getDate();
 	};
 
 	const isCurrentMonth = (dd) => {
-		return dd.getMonth() === selectDate.month;
+		return dd.getMonth() === selectDate.getMonth();
 	};
 
 	return (

@@ -44,16 +44,15 @@ export const addDatePickerDefaultStyle = (selectStyle) => {
 	};
 };
 
-export const addDatePickerErrorStyle = (errorStyle) => {
+export const addDatePickerInputDefaultStyle = (inputStyle) => {
 	return {
-		width: "auto",
-		padding: "6px",
+		width: " 80%",
+		padding: "2px",
 		margin: "auto",
-		borderRadius: "6px",
-		border: "2px solid darkred",
-		backgroundColor: "darksalmon",
-		...errorStyle,
 		boxSizing: "border-box",
+		border: "none",
+		appearance: "none",
+		...inputStyle,
 	};
 };
 

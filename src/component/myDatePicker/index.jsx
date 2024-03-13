@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { extractBorderRadius, setNewFocus, createMonthTable } from "./utils";
+import { extractBorderRadius, createMonthTable } from "./utils";
 import {
 	addChevronOpenDefaultStyle,
 	addChevronClosedDefaultStyle,
 	addDatePickerDefaultStyle,
-	addDatePickerErrorStyle,
+	addDatePickerInputDefaultStyle,
 	addFocusedDefaultStyle,
 	addLabelDefaultStyle,
 	defaultNames,
@@ -21,7 +21,7 @@ const DatePickerComponent = ({
 	dateRange,
 	datesLabels,
 	datePickerStyle,
-	datePickerErrorStyle,
+	datePickerInputStyle,
 	datePickerCalendarStyle,
 	focusedStyle,
 	handleChange,
@@ -29,23 +29,15 @@ const DatePickerComponent = ({
 }) => {
 	const names = datesLabels || defaultNames;
 	const [initDate, setInitDate] = useState(new Date(defaultDate) || new Date());
+	const [showDate, setShowDate] = useState(initDate);
+	const [selectedDate, setSelectedDate] = useState(initDate);
 
-	const [selectedItem, setSelectedItem] = useState(null);
-
-	const [showDate, setShowDate] = useState({
-		full: initDate,
-		year: initDate.getFullYear(),
-		month: initDate.getMonth(),
-		day: initDate.getDate(),
-		weekDay: initDate.getDay(),
-	});
 	const [isOpen, setIsOpen] = useState(false);
 	const DatePickerRef = useRef(null);
-	const focusedItemRef = useRef(null);
+
 	const [DatePickerWidth, setDatePickerWidth] = useState(null);
 	const [DatePickerPosition, setDatePickerPosition] = useState(0);
 	const [resizedWindow, setResizedWindow] = useState(null);
-	const [focusedIndex, setFocusedIndex] = useState(null);
 
 	useEffect(() => {
 		if (isOpen && DatePickerRef.current) {
@@ -67,11 +59,9 @@ const DatePickerComponent = ({
 				"px";
 			setDatePickerPosition(leftPosition);
 		}
-
 		const handleResize = () => {
 			setResizedWindow(window.innerWidth);
 		};
-
 		window.addEventListener("resize", handleResize);
 		return () => {
 			window.removeEventListener("resize", handleResize);
@@ -84,29 +74,11 @@ const DatePickerComponent = ({
 		}
 	}, [isOpen, DatePickerRef]);
 
-	const handleFocus = (index) => {
-		setFocusedIndex(index);
-	};
-
-	const handleKeyDown = (event) => {
-		setFocusedIndex(setNewFocus(event, focusedIndex, defaultDate));
-	};
-
-	useEffect(() => {
-		if (focusedIndex !== -1 && focusedItemRef.current) {
-			focusedItemRef.current.scrollIntoView({
-				behavior: "auto",
-				block: "center",
-				inline: "center",
-			});
-		}
-	}, [focusedIndex]);
-
 	const customDropArrow = arrow || "▼";
 	const customLabelStyle = addLabelDefaultStyle(labelStyle);
 	const customDatePickerStyle = addDatePickerDefaultStyle(datePickerStyle);
-	const customDatePickerErrorStyle =
-		addDatePickerErrorStyle(datePickerErrorStyle);
+	const customDatePickerInputStyle =
+		addDatePickerInputDefaultStyle(datePickerInputStyle);
 	const customFocusedStyle = addFocusedDefaultStyle(focusedStyle);
 	const customChevronOpen = addChevronOpenDefaultStyle(arrowStyle);
 	const customChevronClose = addChevronClosedDefaultStyle(arrowStyle);
@@ -138,7 +110,7 @@ const DatePickerComponent = ({
 	};
 
 	const modifyDate = (type, value) => {
-		let newDate = new Date(showDate.full);
+		let newDate = new Date(showDate);
 		switch (type) {
 			case "y":
 				newDate.setFullYear(newDate.getFullYear() + value);
@@ -152,23 +124,20 @@ const DatePickerComponent = ({
 			default:
 				break;
 		}
-
-		setShowDate({
-			full: newDate,
-			year: newDate.getFullYear(),
-			month: newDate.getMonth(),
-			day: newDate.getDate(),
-			weekDay: newDate.getDay(),
-		});
+		setShowDate(newDate);
 	};
 
 	useEffect(() => {
-		setSelectedItem(
-			showDate.full.toLocaleDateString(language || "en").split("T")
+		setSelectedDate(
+			showDate.toLocaleDateString(language || "en").split("T")[0]
 		);
-
-		handleChange(showDate.full.toLocaleDateString("en-CA").split("T")[0]);
+		handleChange(showDate.toLocaleDateString("en-CA").split("T")[0]);
 	}, [showDate]);
+
+	/*useEffect(() => {
+		setShowDate(selectedDate);
+		modifyDate();
+	}, [selectedDate]);*/
 
 	const handleDateClick = (newDate) => {
 		modifyDate(
@@ -177,27 +146,42 @@ const DatePickerComponent = ({
 		);
 	};
 
+	const handleChangeDate = (event) => {
+		const inputDate = event.target.value;
+		setSelectedDate(inputDate);
+		if (inputDate.length > 7) {
+			const checkDate = new Date(inputDate);
+			if (!isNaN(checkDate.getTime())) {
+				setShowDate(checkDate);
+			}
+		}
+	};
+
 	return (
 		<>
 			<div style={customLabelStyle}>
 				<label>{label}</label>
 			</div>
-			<div
-				style={isError ? customDatePickerErrorStyle : customDatePickerStyle}
-				ref={DatePickerRef}
-			>
+			<div style={customDatePickerStyle} ref={DatePickerRef}>
 				<div
 					className="selected-item"
 					style={
-						selectedItem
+						selectedDate
 							? { position: "relative" }
 							: { position: "relative", color: "grey" }
 					}
-					onKeyDown={handleKeyDown}
+					//onKeyDown={handleKeyDown}
 					tabIndex={0}
 				>
 					<div onClick={() => setIsOpen(!isOpen)}>
-						{selectedItem ? selectedItem : placeholder}
+						<input
+							style={customDatePickerInputStyle}
+							type="text"
+							value={selectedDate}
+							placeholder={placeholder}
+							onChange={handleChangeDate}
+							onClick={(e) => e.stopPropagation()}
+						/>
 						<span style={isOpen ? customChevronOpen : customChevronClose}>
 							{customDropArrow}
 						</span>
@@ -210,41 +194,101 @@ const DatePickerComponent = ({
 							<div className="year-container" style={{ display: "flex" }}>
 								<div
 									className="year-minus"
-									style={{ width: "20%" }}
+									style={{ width: "10%", fontSize: "1.2rem" }}
 									onClick={() => modifyDate("y", -1)}
 								>
-									◄◄
+									⬅
 								</div>
 								<div
-									className="year"
-									style={{ width: "60%", textAlign: "center" }}
+									className="table-header"
+									style={{
+										width: "80%",
+										textAlign: "center",
+										display: "flex",
+										flexDirection: "row",
+										justifyContent: "space-around",
+										fontSize: "1.2rem",
+									}}
 								>
-									{showDate.year}
+									<div
+										className="reset-date"
+										style={{ width: "30%", fontWeight: "800" }}
+									>
+										⟲
+									</div>
+									<div
+										className="dropDown-month"
+										style={{
+											width: "30%",
+											display: "flex",
+											flexDirection: "row",
+											justifyContent: "space-around",
+										}}
+									>
+										{names.months[showDate.getMonth()]}
+										<div
+											style={{
+												width: "10%",
+												height: "1rem",
+												display: "flex",
+												flexDirection: "column",
+												alignItems: "center",
+											}}
+										>
+											<div style={{ height: "49%", fontSize: ".6rem" }}>▲</div>
+											<div style={{ height: "49%", fontSize: ".6rem" }}>▼</div>
+										</div>
+									</div>
+									<div
+										className="dropDown-year"
+										style={{
+											width: "30%",
+											display: "flex",
+											flexDirection: "row",
+											justifyContent: "space-around",
+										}}
+									>
+										{showDate.getFullYear()}
+										<div
+											style={{
+												width: "10%",
+												height: "1rem",
+												display: "flex",
+												flexDirection: "column",
+												alignItems: "center",
+											}}
+										>
+											<div style={{ height: "49%", fontSize: ".6rem" }}>▲</div>
+											<div style={{ height: "49%", fontSize: ".6rem" }}>▼</div>
+										</div>
+									</div>
 								</div>
 								<div
 									className="year-plus"
-									style={{ width: "20%", textAlign: "end" }}
+									style={{ width: "10%", textAlign: "end", fontSize: "1.2rem" }}
 									onClick={() => modifyDate("y", 1)}
 								>
-									►►
+									➡
 								</div>
 							</div>
-							<div className="month-container" style={{ display: "flex" }}>
+							<div
+								className="month-container"
+								style={{ display: "flex", justifyContent: "space-between" }}
+							>
 								<div
 									className="month-minus"
-									style={{ width: "5%", display: "flex", alignSelf: "center" }}
+									style={{ display: "flex", alignSelf: "center" }}
 									onClick={() => modifyDate("m", -1)}
 								>
 									◄
 								</div>
 								<div
-									className="month"
+									className="month-table"
 									style={{
 										width: "90%",
 										textAlign: "center",
 									}}
 								>
-									{names.months[showDate.month]}
 									{createMonthTable({
 										weekDays: names.days,
 										selectDate: showDate,
@@ -255,7 +299,6 @@ const DatePickerComponent = ({
 								<div
 									className="month-plus"
 									style={{
-										width: "5%",
 										textAlign: "end",
 										display: "flex",
 										alignSelf: "center",
