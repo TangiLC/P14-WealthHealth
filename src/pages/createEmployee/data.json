@@ -5,6 +5,31 @@
 		"regexZip": "^[0-9]{5}$"
 	},
 	"en": {
+		"dates": {
+			"months": [
+				"January",
+				"February",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December"
+			],
+			"days": [
+				"Monday",
+				"Tuesday",
+				"Wednesday",
+				"Thursday",
+				"Friday",
+				"Saturday",
+				"Sunday"
+			]
+		},
 		"labels": {
 			"firstName": "First Name",
 			"lastName": "Last Name",
@@ -25,6 +50,32 @@
 		"errorMessageEmpty": "please select an item"
 	},
 	"fr": {
+		"dates": {
+			"months": [
+				"Janvier",
+				"Février",
+				"Mars",
+				"Avril",
+				"Mai",
+				"Juin",
+				"Juillet",
+				"Août",
+				"Septembre",
+				"Octobre",
+				"Novembre",
+				"Décembre"
+			],
+			"days": [
+				"Lundi",
+				"Mardi",
+				"Mercredi",
+				"Jeudi",
+				"Vendredi",
+				"Samedi",
+				"Dimanche"
+			]
+		},
+
 		"labels": {
 			"firstName": "Prénom",
 			"lastName": "Nom",
@@ -45,6 +96,32 @@
 		"errorMessageEmpty": "merci de sélectionner un élément"
 	},
 	"es": {
+		"dates": {
+			"months": [
+				"Enero",
+				"Febrero",
+				"Marzo",
+				"Abril",
+				"Mayo",
+				"Junio",
+				"Julio",
+				"Agosto",
+				"Septiembre",
+				"Octubre",
+				"Noviembre",
+				"Diciembre"
+			],
+			"days": [
+				"Lunes",
+				"Martes",
+				"Miércoles",
+				"Jueves",
+				"Viernes",
+				"Sábado",
+				"Domingo"
+			]
+		},
+
 		"labels": {
 			"firstName": "Nombre",
 			"lastName": "Apellido",

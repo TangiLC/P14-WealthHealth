@@ -96,10 +96,12 @@ function CreateEmployee() {
 					</div>
 					<div className={styles.column100}>
 						<DatePickerComponent
+							language={language}
+							datesLabels={data[language].dates}
 							label={data[language].labels.dateOfBirth}
 							placeholder={data[language].labels.dateFormat}
 							defaultDate={today}
-							dateRange={[-36500,0]}
+							dateRange={[-36500, 0]}
 							handleChange={(value) => handleChange("dateOfBirth", value)}
 							labelStyle={dropdownStyle.labelStyle}
 							datePickerStyle={dropdownStyle.dropdownStyle}
