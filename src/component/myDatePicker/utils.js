@@ -1,3 +1,4 @@
+/*************mise en forme du cadre *********************/
 export function extractBorderRadius(borderRadius, side) {
 	const values = borderRadius.split(" ");
 
@@ -16,11 +17,13 @@ export function extractBorderRadius(borderRadius, side) {
 	return bottomRadius;
 }
 
+/**************tableau 7x5 des jours du mois courant ********/
 export function createDaysTable({
 	weekDays,
 	selectDate,
 	onDateClick,
 	focusStyle,
+	dateRange,
 }) {
 	const daysInMonth = new Date(
 		selectDate.getFullYear(),
@@ -97,6 +100,14 @@ export function createDaysTable({
 		return dd.getMonth() === selectDate.getMonth();
 	};
 
+	const isOutOfRange = (date) => {
+		if (dateRange === undefined) {
+			return false;
+		} else {
+			return date >= dateRange.min && date <= dateRange.max;
+		}
+	};
+
 	return (
 		<div
 			className="table-container"
@@ -149,18 +160,19 @@ export function createDaysTable({
 							<div
 								className="calendar-day"
 								key={index}
-								onClick={() => onDateClick("d", cell.date)}
+								onClick={() => {
+									!isOutOfRange(cell.date) ? onDateClick("d", cell.date) : null;
+								}}
 								style={{
 									width: "14.2%",
 									...(!isCurrentMonth(cell.date) ? { color: "lightgray" } : {}),
 									...(isCurrentDay(cell.date) && isCurrentMonth(cell.date)
 										? focusStyle
 										: {}),
+									...(isOutOfRange(cell.date) ? { color: "red" } : {}),
 								}}
 							>
-								{cell.day > 0 && cell.day <= daysInMonth
-									? cell.day
-									: cell.date.getDate()}
+								{cell.date.getDate()}
 							</div>
 						))}
 					</div>
@@ -170,6 +182,7 @@ export function createDaysTable({
 	);
 }
 
+/**************Tableau 4x3 des mois de l'année  *************/
 export function createMonthTable({
 	monthList,
 	selectDate,
@@ -181,7 +194,6 @@ export function createMonthTable({
 		newDate.setMonth(monthIndex);
 		onMonthClick(newDate);
 	};
-
 	const chunkArray = (arr, size) => {
 		const chunkedArray = [];
 		for (let i = 0; i < arr.length; i += size) {
@@ -218,6 +230,89 @@ export function createMonthTable({
 								onClick={() => handleClick(index)}
 							>
 								{month}
+							</div>
+						);
+					})}
+				</div>
+			))}
+		</div>
+	);
+}
+
+/***************Tableau 5xn des années (-99/+99) ****/
+export function createYearTable({
+	selectDate,
+	dateRange,
+	onYearClick,
+	scrollToYear,
+	focusStyle,
+}) {
+	const selectYear = selectDate.getFullYear();
+
+	const handleClick = (year) => {
+		let newDate = new Date(selectDate);
+		newDate.setFullYear(year);
+		onYearClick(newDate);
+		scrollToYear();
+	};
+	const generateYearRange = (selectYear, dateRange) => {
+		const yearRange = [];
+		let minYear =
+			dateRange?.min !== undefined
+				? dateRange.min.getFullYear()
+				: selectYear - 101;
+		let maxYear =
+			dateRange?.max !== undefined
+				? dateRange.max.getFullYear()
+				: selectYear + 100;
+
+		for (let i = minYear; i <= maxYear; i++) {
+			yearRange.push(i);
+		}
+		return yearRange;
+	};
+
+	const yearRange = generateYearRange(selectYear, dateRange);
+	const chunkArray = (arr, size) => {
+		const chunkedArray = [];
+		for (let i = 0; i < arr.length; i += size) {
+			chunkedArray.push(arr.slice(i, i + size));
+		}
+		return chunkedArray;
+	};
+
+	const yearsInRows = chunkArray(yearRange, 5);
+
+	return (
+		<div
+			className="year-selector"
+			style={{ overflow: "auto", maxHeight: "20dvh" }}
+		>
+			{yearsInRows.map((row, rowIndex) => (
+				<div
+					key={rowIndex}
+					className="year-row"
+					style={{
+						textAlign: "center",
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "center",
+					}}
+				>
+					{row.map((year, columnIndex) => {
+						const isFocused = year === selectYear;
+						return (
+							<div
+								key={year}
+								className={isFocused ? "focused-year" : ""}
+								style={{
+									width: "20%",
+									marginTop: "10px",
+									...(isFocused ? focusStyle : {}),
+								}}
+								onClick={() => handleClick(year)}
+							>
+								{year}
 							</div>
 						);
 					})}

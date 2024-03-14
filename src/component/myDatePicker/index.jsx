@@ -3,6 +3,7 @@ import {
 	extractBorderRadius,
 	createDaysTable,
 	createMonthTable,
+	createYearTable,
 } from "./utils";
 import {
 	addChevronOpenDefaultStyle,
@@ -15,7 +16,6 @@ import {
 } from "./const";
 
 const DatePickerComponent = ({
-	language,
 	label,
 	labelStyle,
 	placeholder,
@@ -29,14 +29,12 @@ const DatePickerComponent = ({
 	datePickerCalendarStyle,
 	focusedStyle,
 	handleChange,
-	isError,
 }) => {
 	const names = datesLabels || defaultNames;
 	const [initDate, setInitDate] = useState(new Date(defaultDate) || new Date());
 	const [showDate, setShowDate] = useState(initDate);
 	const [selectedDate, setSelectedDate] = useState(initDate);
 	const [itemToPick, setItemToPick] = useState("day");
-
 	const [isOpen, setIsOpen] = useState(false);
 	const DatePickerRef = useRef(null);
 	const [DatePickerWidth, setDatePickerWidth] = useState(null);
@@ -46,6 +44,10 @@ const DatePickerComponent = ({
 	useEffect(() => {
 		setItemToPick("day");
 	}, [isOpen]);
+
+	useEffect(() => {
+		itemToPick === "year" ? scrollToYear() : null;
+	}, [itemToPick]);
 
 	useEffect(() => {
 		if (isOpen && DatePickerRef.current) {
@@ -149,6 +151,26 @@ const DatePickerComponent = ({
 		);
 	};
 
+	const scrollToYear = () => {
+		const yearSelector = document.getElementById("year-selector");
+		const focusedYear = document.getElementById("focused-year");
+
+		if (yearSelector && focusedYear) {
+			const yearSelectorRect = yearSelector.getBoundingClientRect();
+			const focusedYearRect = focusedYear.getBoundingClientRect();
+
+			const scrollTop =
+				focusedYearRect.top -
+				yearSelectorRect.top -
+				(yearSelectorRect.height - focusedYearRect.height) / 2;
+
+			yearSelector.scrollTo({
+				top: scrollTop,
+				behavior: "smooth",
+			});
+		}
+	};
+
 	const handleDateChange = (newDate) => {
 		setShowDate(newDate);
 	};
@@ -162,8 +184,12 @@ const DatePickerComponent = ({
 			if (/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(selectedDate)) {
 				const checkDate = new Date(selectedDate);
 				if (!isNaN(checkDate.getTime())) {
-					setShowDate(checkDate);
 					setIsOpen(true);
+					if (checkDate >= dateRange?.max) {
+						setShowDate(dateRange.max);
+					} else if (checkDate <= dateRange?.min) {
+						setShowDate(dateRange.min);
+					} else setShowDate(checkDate);
 				}
 			}
 		}
@@ -344,6 +370,13 @@ const DatePickerComponent = ({
 									monthList: names.months,
 									selectDate: showDate,
 									onMonthClick: handleDateChange,
+									focusStyle: customFocusedStyle,
+								})
+							) : itemToPick === "year" ? (
+								createYearTable({
+									selectDate: showDate,
+									onYearClick: handleDateChange,
+									scrollToYear: scrollToYear,
 									focusStyle: customFocusedStyle,
 								})
 							) : null}
