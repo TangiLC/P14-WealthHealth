@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateField } from "../../slice/newEmployee";
 
-import InputComponent from "../../component/formInput";
-import DropDownComponent from "../../component/myDropDown";
-import DatePickerComponent from "../../component/myDatePicker";
-import MyModal from "../../component/myModal";
-import SaveButton from "../../component/saveButton";
+const InputComponent = lazy(() => import("../../component/formInput"));
+const DropDownComponent = lazy(() => import("../../component/myDropDown"));
+const DatePickerComponent = lazy(() => import("../../component/myDatePicker"));
+const MyModal = lazy(() => import("../../component/myModal"));
+const SaveButton = lazy(() => import("../../component/saveButton"));
 
 import styles from "./styles.module.css";
 import data from "./data.json";

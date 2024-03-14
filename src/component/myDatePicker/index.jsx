@@ -1,5 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { extractBorderRadius, createMonthTable } from "./utils";
+import {
+	extractBorderRadius,
+	createDaysTable,
+	createMonthTable,
+} from "./utils";
 import {
 	addChevronOpenDefaultStyle,
 	addChevronClosedDefaultStyle,
@@ -31,13 +35,17 @@ const DatePickerComponent = ({
 	const [initDate, setInitDate] = useState(new Date(defaultDate) || new Date());
 	const [showDate, setShowDate] = useState(initDate);
 	const [selectedDate, setSelectedDate] = useState(initDate);
+	const [itemToPick, setItemToPick] = useState("day");
 
 	const [isOpen, setIsOpen] = useState(false);
 	const DatePickerRef = useRef(null);
-
 	const [DatePickerWidth, setDatePickerWidth] = useState(null);
 	const [DatePickerPosition, setDatePickerPosition] = useState(0);
 	const [resizedWindow, setResizedWindow] = useState(null);
+
+	useEffect(() => {
+		setItemToPick("day");
+	}, [isOpen]);
 
 	useEffect(() => {
 		if (isOpen && DatePickerRef.current) {
@@ -128,31 +136,35 @@ const DatePickerComponent = ({
 	};
 
 	useEffect(() => {
-		setSelectedDate(
-			showDate.toLocaleDateString(language || "en").split("T")[0]
-		);
-		handleChange(showDate.toLocaleDateString("en-CA").split("T")[0]);
+		const offset = showDate.getTimezoneOffset();
+		showDate.setTime(showDate.getTime() - offset * 60000);
+		setSelectedDate(showDate.toISOString().split("T")[0]);
+		handleChange(showDate.toISOString().split("T")[0]);
 	}, [showDate]);
 
-	/*useEffect(() => {
-		setShowDate(selectedDate);
-		modifyDate();
-	}, [selectedDate]);*/
-
-	const handleDateClick = (newDate) => {
+	const handleDateClick = (pick, newDate) => {
 		modifyDate(
-			"d",
+			pick,
 			new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate())
 		);
 	};
 
-	const handleChangeDate = (event) => {
-		const inputDate = event.target.value;
-		setSelectedDate(inputDate);
-		if (inputDate.length > 7) {
-			const checkDate = new Date(inputDate);
-			if (!isNaN(checkDate.getTime())) {
-				setShowDate(checkDate);
+	const handleDateChange = (newDate) => {
+		setShowDate(newDate);
+	};
+
+	const handleInputDate = (event) => {
+		setSelectedDate(event.target.value);
+	};
+
+	const handleInputEnterKey = (event) => {
+		if (event.key === "Enter") {
+			if (/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(selectedDate)) {
+				const checkDate = new Date(selectedDate);
+				if (!isNaN(checkDate.getTime())) {
+					setShowDate(checkDate);
+					setIsOpen(true);
+				}
 			}
 		}
 	};
@@ -179,7 +191,8 @@ const DatePickerComponent = ({
 							type="text"
 							value={selectedDate}
 							placeholder={placeholder}
-							onChange={handleChangeDate}
+							onChange={handleInputDate}
+							onKeyDown={handleInputEnterKey}
 							onClick={(e) => e.stopPropagation()}
 						/>
 						<span style={isOpen ? customChevronOpen : customChevronClose}>
@@ -213,6 +226,7 @@ const DatePickerComponent = ({
 									<div
 										className="reset-date"
 										style={{ width: "30%", fontWeight: "800" }}
+										onClick={() => handleDateChange(initDate)}
 									>
 										⟲
 									</div>
@@ -224,6 +238,11 @@ const DatePickerComponent = ({
 											flexDirection: "row",
 											justifyContent: "space-around",
 										}}
+										onClick={() => {
+											itemToPick === "month"
+												? setItemToPick("day")
+												: setItemToPick("month");
+										}}
 									>
 										{names.months[showDate.getMonth()]}
 										<div
@@ -233,10 +252,13 @@ const DatePickerComponent = ({
 												display: "flex",
 												flexDirection: "column",
 												alignItems: "center",
+												fontSize: ".6rem",
+												...(itemToPick === "month"
+													? { transform: "rotate(-180deg)" }
+													: {}),
 											}}
 										>
-											<div style={{ height: "49%", fontSize: ".6rem" }}>▲</div>
-											<div style={{ height: "49%", fontSize: ".6rem" }}>▼</div>
+											▼
 										</div>
 									</div>
 									<div
@@ -247,6 +269,11 @@ const DatePickerComponent = ({
 											flexDirection: "row",
 											justifyContent: "space-around",
 										}}
+										onClick={() => {
+											itemToPick === "year"
+												? setItemToPick("day")
+												: setItemToPick("year");
+										}}
 									>
 										{showDate.getFullYear()}
 										<div
@@ -256,10 +283,13 @@ const DatePickerComponent = ({
 												display: "flex",
 												flexDirection: "column",
 												alignItems: "center",
+												fontSize: ".6rem",
+												...(itemToPick === "year"
+													? { transform: "rotate(-180deg)" }
+													: {}),
 											}}
 										>
-											<div style={{ height: "49%", fontSize: ".6rem" }}>▲</div>
-											<div style={{ height: "49%", fontSize: ".6rem" }}>▼</div>
+											▼
 										</div>
 									</div>
 								</div>
@@ -271,43 +301,52 @@ const DatePickerComponent = ({
 									➡
 								</div>
 							</div>
-							<div
-								className="month-container"
-								style={{ display: "flex", justifyContent: "space-between" }}
-							>
+							{itemToPick === "day" ? (
 								<div
-									className="month-minus"
-									style={{ display: "flex", alignSelf: "center" }}
-									onClick={() => modifyDate("m", -1)}
+									className="month-container"
+									style={{ display: "flex", justifyContent: "space-between" }}
 								>
-									◄
+									<div
+										className="month-minus"
+										style={{ display: "flex", alignSelf: "center" }}
+										onClick={() => modifyDate("m", -1)}
+									>
+										◄
+									</div>
+									<div
+										className="month-table"
+										style={{
+											width: "90%",
+											textAlign: "center",
+										}}
+									>
+										{createDaysTable({
+											weekDays: names.days,
+											selectDate: showDate,
+											focusStyle: customFocusedStyle,
+											onDateClick: handleDateClick,
+										})}
+									</div>
+									<div
+										className="month-plus"
+										style={{
+											textAlign: "end",
+											display: "flex",
+											alignSelf: "center",
+										}}
+										onClick={() => modifyDate("m", 1)}
+									>
+										►
+									</div>
 								</div>
-								<div
-									className="month-table"
-									style={{
-										width: "90%",
-										textAlign: "center",
-									}}
-								>
-									{createMonthTable({
-										weekDays: names.days,
-										selectDate: showDate,
-										focusStyle: customFocusedStyle,
-										onDateClick: handleDateClick,
-									})}
-								</div>
-								<div
-									className="month-plus"
-									style={{
-										textAlign: "end",
-										display: "flex",
-										alignSelf: "center",
-									}}
-									onClick={() => modifyDate("m", 1)}
-								>
-									►
-								</div>
-							</div>
+							) : itemToPick === "month" ? (
+								createMonthTable({
+									monthList: names.months,
+									selectDate: showDate,
+									onMonthClick: handleDateChange,
+									focusStyle: customFocusedStyle,
+								})
+							) : null}
 						</div>
 					)}
 				</div>

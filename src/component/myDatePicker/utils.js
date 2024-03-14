@@ -16,7 +16,7 @@ export function extractBorderRadius(borderRadius, side) {
 	return bottomRadius;
 }
 
-export function createMonthTable({
+export function createDaysTable({
 	weekDays,
 	selectDate,
 	onDateClick,
@@ -149,7 +149,7 @@ export function createMonthTable({
 							<div
 								className="calendar-day"
 								key={index}
-								onClick={() => onDateClick(cell.date)}
+								onClick={() => onDateClick("d", cell.date)}
 								style={{
 									width: "14.2%",
 									...(!isCurrentMonth(cell.date) ? { color: "lightgray" } : {}),
@@ -166,6 +166,63 @@ export function createMonthTable({
 					</div>
 				))}
 			</div>
+		</div>
+	);
+}
+
+export function createMonthTable({
+	monthList,
+	selectDate,
+	onMonthClick,
+	focusStyle,
+}) {
+	const handleClick = (monthIndex) => {
+		let newDate = new Date(selectDate);
+		newDate.setMonth(monthIndex);
+		onMonthClick(newDate);
+	};
+
+	const chunkArray = (arr, size) => {
+		const chunkedArray = [];
+		for (let i = 0; i < arr.length; i += size) {
+			chunkedArray.push(arr.slice(i, i + size));
+		}
+		return chunkedArray;
+	};
+
+	const monthsInRows = chunkArray(monthList, 4);
+
+	return (
+		<div className="month-selector">
+			{monthsInRows.map((row, rowIndex) => (
+				<div
+					key={rowIndex}
+					className="month-row"
+					style={{
+						textAlign: "center",
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "center",
+					}}
+				>
+					{row.map((month, columnIndex) => {
+						const index = rowIndex * 4 + columnIndex;
+						return (
+							<div
+								key={index}
+								style={{
+									width: "25%",
+									marginTop: "10px",
+									...(index === selectDate.getMonth() ? focusStyle : {}),
+								}}
+								onClick={() => handleClick(index)}
+							>
+								{month}
+							</div>
+						);
+					})}
+				</div>
+			))}
 		</div>
 	);
 }
