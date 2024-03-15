@@ -76,7 +76,7 @@ function CreateEmployee() {
 		<>
 			<div className={styles.container}>
 				<div className={styles.column50}>
-					<div className={styles.column100}>
+					<div className={styles.column100} key={"firstName"}>
 						<InputComponent
 							label={data[language].labels.firstName}
 							regex={new RegExp(data.regex.regexName)}
@@ -85,7 +85,7 @@ function CreateEmployee() {
 							isError={isCheckEmpty && newEmployee.firstName === null}
 						/>
 					</div>
-					<div className={styles.column100}>
+					<div className={styles.column100} key={"lastName"}>
 						<InputComponent
 							label={data[language].labels.lastName}
 							regex={new RegExp(data.regex.regexName)}
@@ -94,15 +94,38 @@ function CreateEmployee() {
 							isError={isCheckEmpty && newEmployee.lastName === null}
 						/>
 					</div>
-					<div className={styles.column100}>
+					<div className={styles.column100} key={"dateOfBirth"}>
 						<DatePickerComponent
 							language={language}
 							datesLabels={data[language].dates}
 							label={data[language].labels.dateOfBirth}
 							placeholder={data[language].labels.dateFormat}
 							defaultDate={today}
-							dateRange={[-36500, 0]}
+							dateRange={{
+								min: new Date(new Date(today).setFullYear(new Date(today).getFull() + 2)),
+								max: new Date(today),
+							}}
 							handleChange={(value) => handleChange("dateOfBirth", value)}
+							labelStyle={dropdownStyle.labelStyle}
+							datePickerStyle={dropdownStyle.dropdownStyle}
+							datePickerErrorStyle={dropdownStyle.dropdownErrorStyle}
+							focusedStyle={dropdownStyle.focusedStyle}
+							arrowStyle={dropdownStyle.arrowStyle}
+							isError={isCheckEmpty && newEmployee.state === null}
+						/>
+					</div>
+					<div className={styles.column100} key={"startDate"}>
+						<DatePickerComponent
+							language={language}
+							datesLabels={data[language].dates}
+							label={data[language].labels.startDate}
+							placeholder={data[language].labels.dateFormat}
+							defaultDate={today}
+							dateRange={{
+								min: new Date("1990-01-01"),
+								max: new Date(new Date(today).setMonth(new Date(today).getMonth() + 2)),
+							}}
+							handleChange={(value) => handleChange("startDate", value)}
 							labelStyle={dropdownStyle.labelStyle}
 							datePickerStyle={dropdownStyle.dropdownStyle}
 							datePickerErrorStyle={dropdownStyle.dropdownErrorStyle}
@@ -116,7 +139,7 @@ function CreateEmployee() {
 					<div className={styles.relativePosTitle}>
 						{data[language].labels.address}
 					</div>
-					<div className={styles.column100}>
+					<div className={styles.column100} key={"street"}>
 						<InputComponent
 							label={data[language].labels.street}
 							regex={new RegExp(data.regex.regexStreet)}
@@ -125,7 +148,7 @@ function CreateEmployee() {
 							isError={isCheckEmpty && newEmployee.street === null}
 						/>
 					</div>
-					<div className={styles.column100}>
+					<div className={styles.column100} key={"city"}>
 						<InputComponent
 							label={data[language].labels.city}
 							regex={new RegExp(data.regex.regexName)}
@@ -134,7 +157,7 @@ function CreateEmployee() {
 							isError={isCheckEmpty && newEmployee.city === null}
 						/>
 					</div>
-					<div className={styles.column100}>
+					<div className={styles.column100} key={"state"}>
 						<DropDownComponent
 							label={data[language].labels.state}
 							placeholder={data[language].labels.state + "..."}
@@ -157,7 +180,7 @@ function CreateEmployee() {
 							{data[language].errorMessageEmpty}
 						</div>
 					</div>
-					<div className={styles.column100}>
+					<div className={styles.column100} key={"zipCode"}>
 						<InputComponent
 							label={data[language].labels.zipCode}
 							regex={new RegExp(data.regex.regexZip)}
@@ -168,7 +191,7 @@ function CreateEmployee() {
 					</div>
 				</div>
 			</div>
-			<div className={styles.modalPosition}>
+			<div className={styles.modalPosition} key={"modal"}>
 				<MyModal
 					modalStyle={""}
 					modalTitle={"Title"}
@@ -181,7 +204,7 @@ function CreateEmployee() {
 			</div>
 			<div className={styles.container}>
 				<div className={styles.column50}>
-					<div className={styles.column100}>
+					<div className={styles.column100} key={"department"}>
 						<DropDownComponent
 							label={data[language].labels.department}
 							placeholder={data[language].labels.department + "..."}
@@ -206,7 +229,7 @@ function CreateEmployee() {
 					</div>
 				</div>
 				<div className={styles.column50}>
-					<div className={styles.column100}>
+					<div className={styles.column100} key={"saveButton"}>
 						<SaveButton
 							label={data[language].labels.save}
 							isClickable={isSaveClickable}

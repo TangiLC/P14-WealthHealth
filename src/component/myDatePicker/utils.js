@@ -100,11 +100,20 @@ export function createDaysTable({
 		return dd.getMonth() === selectDate.getMonth();
 	};
 
-	const isOutOfRange = (date) => {
+	const isInRange = (date) => {
 		if (dateRange === undefined) {
-			return false;
+			return true;
 		} else {
-			return date >= dateRange.min && date <= dateRange.max;
+			const minDefined = dateRange.min !== undefined;
+			const maxDefined = dateRange.max !== undefined;
+
+			if (minDefined && maxDefined) {
+				return date >= dateRange.min && date <= dateRange.max;
+			} else if (minDefined && !maxDefined) {
+				return date >= dateRange.min;
+			} else if (!minDefined && maxDefined) {
+				return date <= dateRange.max;
+			}
 		}
 	};
 
@@ -161,7 +170,7 @@ export function createDaysTable({
 								className="calendar-day"
 								key={index}
 								onClick={() => {
-									!isOutOfRange(cell.date) ? onDateClick("d", cell.date) : null;
+									isInRange(cell.date) ? onDateClick("d", cell.date) : null;
 								}}
 								style={{
 									width: "14.2%",
@@ -169,7 +178,7 @@ export function createDaysTable({
 									...(isCurrentDay(cell.date) && isCurrentMonth(cell.date)
 										? focusStyle
 										: {}),
-									...(isOutOfRange(cell.date) ? { color: "red" } : {}),
+									...(!isInRange(cell.date) ? { color: "red" } : {}),
 								}}
 							>
 								{cell.date.getDate()}

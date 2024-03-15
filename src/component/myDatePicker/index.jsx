@@ -251,10 +251,41 @@ const DatePickerComponent = ({
 								>
 									<div
 										className="reset-date"
-										style={{ width: "30%", fontWeight: "800" }}
+										style={{ width: "10%", fontWeight: "800" }}
 										onClick={() => handleDateChange(initDate)}
 									>
 										⟲
+									</div>
+									<div
+										className="dropDown-day"
+										style={{
+											width: "30%",
+											display: "flex",
+											flexDirection: "row",
+											justifyContent: "space-around",
+										}}
+										onClick={() => {
+											itemToPick === "day"
+												? setItemToPick(null)
+												: setItemToPick("day");
+										}}
+									>
+										{names.days[showDate.getDay()-1]}&nbsp;{showDate.getDate()}
+										<div
+											style={{
+												width: "10%",
+												height: "1rem",
+												display: "flex",
+												flexDirection: "column",
+												alignItems: "center",
+												fontSize: ".6rem",
+												...(itemToPick === "day"
+													? { transform: "rotate(-180deg)" }
+													: {}),
+											}}
+										>
+											▼
+										</div>
 									</div>
 									<div
 										className="dropDown-month"
@@ -347,6 +378,7 @@ const DatePickerComponent = ({
 										}}
 									>
 										{createDaysTable({
+											dateRange:dateRange,
 											weekDays: names.days,
 											selectDate: showDate,
 											focusStyle: customFocusedStyle,
@@ -367,6 +399,7 @@ const DatePickerComponent = ({
 								</div>
 							) : itemToPick === "month" ? (
 								createMonthTable({
+									dateRange:dateRange,
 									monthList: names.months,
 									selectDate: showDate,
 									onMonthClick: handleDateChange,
@@ -374,6 +407,7 @@ const DatePickerComponent = ({
 								})
 							) : itemToPick === "year" ? (
 								createYearTable({
+									dateRange: dateRange,
 									selectDate: showDate,
 									onYearClick: handleDateChange,
 									scrollToYear: scrollToYear,
