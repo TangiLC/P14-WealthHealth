@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateField } from "../../slice/newEmployee";
+import { updateField, resetFields } from "../../slice/newEmployee";
 
 const InputComponent = lazy(() => import("../../component/formInput"));
 const DropDownComponent = lazy(() => import("../../component/myDropDown"));
@@ -8,8 +8,10 @@ const DatePickerComponent = lazy(() => import("../../component/myDatePicker"));
 const MyModal = lazy(() => import("../../component/myModal"));
 const SaveButton = lazy(() => import("../../component/saveButton"));
 
+import { addEmployee } from "../../utils/utils";
+
 import styles from "./styles.module.css";
-import data from "./data.json";
+import data from "../data.json";
 import statesData from "../../assets/lists/states.json";
 import departmentsData from "../../assets/lists/departments.json";
 
@@ -21,7 +23,12 @@ function CreateEmployee() {
 	const [isSaveClickable, setIsSaveClickable] = useState(false);
 	const [isCheckEmpty, setIsCheckEmpty] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [modalMessage, setModalMessage] = useState("");
 	const isEmpty = useRef(false);
+	const [addEmployeeResult, setAddEmployeeResult] = useState({
+		success: false,
+		error: "",
+	});
 
 	const statesList = statesData.states.map((state) => state.fullName);
 	const departmentsList = departmentsData.departments;
@@ -29,14 +36,46 @@ function CreateEmployee() {
 	const handleCloseModal = () => {
 		setIsModalOpen(false);
 	};
+
+	useEffect(() => {
+		setIsModalOpen(false);
+		setIsSaveClickable(false);
+	}, []);
+
+	useEffect(() => {
+		const isDataFull = Object.values(newEmployee).every(
+			(value) => value !== null
+		);
+		setIsSaveClickable(isDataFull);
+	}, [newEmployee]);
+
 	const handleChange = (field, value) => {
 		dispatch(updateField({ field, value }));
+		if (field === "state") {
+			const stateInfo = data.states.find((state) => state.name === value);
+			const shortName = stateInfo ? stateInfo.abbreviation : "N/A";
+			handleChange("shortState", shortName);
+		}
 	};
 
-	const handleSave = () => {
+	useEffect(() => {
+		setModalMessage(
+			addEmployeeResult.success
+				? data[language].modalSuccess
+				: data[language].modalFail + addEmployeeResult.error
+		);
+	}, [addEmployeeResult]);
+
+	const handleSave = async () => {
 		if (isSaveClickable) {
-			console.log("SAVE");
+			console.log("SAVE", newEmployee);
+			const addResult = await addEmployee(newEmployee);
+			setAddEmployeeResult(addResult);
 			setIsModalOpen(true);
+
+			if (addResult.success === true) {
+				dispatch(resetFields());
+			}
 		} else {
 			setIsCheckEmpty(true);
 		}
@@ -50,6 +89,14 @@ function CreateEmployee() {
 			return () => clearTimeout(timer);
 		}
 	}, [isCheckEmpty]);
+
+	const createRangeDate = (initDate, years, months, days) => {
+		let newDate = new Date(initDate);
+		newDate.setFullYear(newDate.getFullYear() + years);
+		newDate.setMonth(newDate.getMonth() + months);
+		newDate.setDate(newDate.getDate() + days);
+		return newDate;
+	};
 
 	const dropdownStyle = {
 		labelStyle: { margin: "3px" },
@@ -100,10 +147,10 @@ function CreateEmployee() {
 							datesLabels={data[language].dates}
 							label={data[language].labels.dateOfBirth}
 							placeholder={data[language].labels.dateFormat}
-							defaultDate={today}
+							defaultDate={createRangeDate(today, -12, 0, 0)}
 							dateRange={{
-								min: new Date(new Date(today).setFullYear(new Date(today).getFull() + 2)),
-								max: new Date(today),
+								min: createRangeDate(today, -99, 0, 0),
+								max: createRangeDate(today, -12, 0, 0),
 							}}
 							handleChange={(value) => handleChange("dateOfBirth", value)}
 							labelStyle={dropdownStyle.labelStyle}
@@ -114,6 +161,7 @@ function CreateEmployee() {
 							isError={isCheckEmpty && newEmployee.state === null}
 						/>
 					</div>
+					<div>&nbsp;</div>
 					<div className={styles.column100} key={"startDate"}>
 						<DatePickerComponent
 							language={language}
@@ -123,7 +171,7 @@ function CreateEmployee() {
 							defaultDate={today}
 							dateRange={{
 								min: new Date("1990-01-01"),
-								max: new Date(new Date(today).setMonth(new Date(today).getMonth() + 2)),
+								max: createRangeDate(today, 0, 2, 0),
 							}}
 							handleChange={(value) => handleChange("startDate", value)}
 							labelStyle={dropdownStyle.labelStyle}
@@ -134,6 +182,7 @@ function CreateEmployee() {
 							isError={isCheckEmpty && newEmployee.state === null}
 						/>
 					</div>
+					<div>&nbsp;</div>
 				</div>
 				<div className={`${styles.column50} ${styles.addressBorder}`}>
 					<div className={styles.relativePosTitle}>
@@ -194,9 +243,9 @@ function CreateEmployee() {
 			<div className={styles.modalPosition} key={"modal"}>
 				<MyModal
 					modalStyle={""}
-					modalTitle={"Title"}
+					modalTitle={data[language].modalTitle}
 					titleStyle={""}
-					modalMessage={"Message"}
+					modalMessage={modalMessage}
 					messageStyle={""}
 					isModalOpen={isModalOpen}
 					closeModal={handleCloseModal}

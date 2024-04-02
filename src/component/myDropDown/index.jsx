@@ -31,6 +31,7 @@ const DropDownComponent = ({
 	const [dropdownPosition, setDropdownPosition] = useState(0);
 	const [resizedWindow, setResizedWindow] = useState(null);
 	const [focusedIndex, setFocusedIndex] = useState(null);
+	const [previousKey, setPreviousKey] = useState(null);
 
 	const handleItemClick = (item) => {
 		setSelectedItem(item);
@@ -78,19 +79,46 @@ const DropDownComponent = ({
 		setFocusedIndex(index);
 	};
 
-	const handleKeyDown = (event) => {
-		setFocusedIndex(setNewFocus(event, focusedIndex, list));
-	};
-
 	useEffect(() => {
-		if (focusedIndex !== -1 && focusedItemRef.current) {
+		if (focusedItemRef.current) {
 			focusedItemRef.current.scrollIntoView({
-				behavior: "auto",
+				behavior: "smooth",
 				block: "center",
-				inline: "center",
 			});
 		}
 	}, [focusedIndex]);
+
+	const handleKeyDown = (event) => {
+		event.preventDefault();
+		if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+			const newIndex =
+				event.key === "ArrowDown" ? focusedIndex + 1 : focusedIndex - 1;
+			const clampedIndex = Math.max(0, Math.min(newIndex, list.length - 1));
+			setFocusedIndex(clampedIndex);
+		} else if (/^[a-zA-Z]$/.test(event.key)) {
+			const key = event.key.toLowerCase();
+			if (key === previousKey) {
+				const currentIndex = focusedIndex !== null ? focusedIndex + 1 : 0;
+				const index = list
+					.slice(currentIndex)
+					.findIndex((item) => item.toLowerCase().startsWith(key));
+				if (index !== -1) {
+					setFocusedIndex(index + currentIndex);
+				}
+			} else {
+				const index = list.findIndex((item) =>
+					item.toLowerCase().startsWith(key)
+				);
+				if (index !== -1) {
+					setFocusedIndex(index);
+				}
+			}
+			setPreviousKey(key);
+		}
+	};
+	/*const handleKeyDown = (event) => {
+		setFocusedIndex(setNewFocus(event, focusedIndex, list));
+	};*/
 
 	const customDropArrow = arrow || "▼";
 	const customLabelStyle = addLabelDefaultStyle(labelStyle);
@@ -102,7 +130,7 @@ const DropDownComponent = ({
 
 	const customDropdownListStyle = {
 		backgroundColor: customDropdownStyle.backgroundColor,
-		color:"black",
+		color: "black",
 		width: dropdownWidth,
 		padding: customDropdownStyle.padding,
 		margin: customDropdownStyle.margin,

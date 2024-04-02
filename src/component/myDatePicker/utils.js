@@ -295,6 +295,7 @@ export function createYearTable({
 	return (
 		<div
 			className="year-selector"
+			id="year-selector"
 			style={{ overflow: "auto", maxHeight: "20dvh" }}
 		>
 			{yearsInRows.map((row, rowIndex) => (
@@ -314,12 +315,15 @@ export function createYearTable({
 							<div
 								key={year}
 								className={isFocused ? "focused-year" : ""}
+								id={year}
 								style={{
 									width: "20%",
 									marginTop: "10px",
 									...(isFocused ? focusStyle : {}),
 								}}
-								onClick={() => handleClick(year)}
+								onClick={() => {
+									handleClick(year);
+								}}
 							>
 								{year}
 							</div>

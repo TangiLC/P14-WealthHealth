@@ -46,10 +46,6 @@ const DatePickerComponent = ({
 	}, [isOpen]);
 
 	useEffect(() => {
-		itemToPick === "year" ? scrollToYear() : null;
-	}, [itemToPick]);
-
-	useEffect(() => {
 		if (isOpen && DatePickerRef.current) {
 			const thisWidth = DatePickerRef.current.offsetWidth;
 			setDatePickerWidth(thisWidth);
@@ -142,6 +138,7 @@ const DatePickerComponent = ({
 		showDate.setTime(showDate.getTime() - offset * 60000);
 		setSelectedDate(showDate.toISOString().split("T")[0]);
 		handleChange(showDate.toISOString().split("T")[0]);
+		scrollToYear();
 	}, [showDate]);
 
 	const handleDateClick = (pick, newDate) => {
@@ -153,8 +150,9 @@ const DatePickerComponent = ({
 
 	const scrollToYear = () => {
 		const yearSelector = document.getElementById("year-selector");
-		const focusedYear = document.getElementById("focused-year");
-
+		const focusedYear = document.getElementById(
+			`${showDate.toISOString().split("-")[0]}`
+		);
 		if (yearSelector && focusedYear) {
 			const yearSelectorRect = yearSelector.getBoundingClientRect();
 			const focusedYearRect = focusedYear.getBoundingClientRect();
@@ -162,7 +160,8 @@ const DatePickerComponent = ({
 			const scrollTop =
 				focusedYearRect.top -
 				yearSelectorRect.top -
-				(yearSelectorRect.height - focusedYearRect.height) / 2;
+				(yearSelectorRect.height - focusedYearRect.height) / 2 +
+				yearSelector.scrollTop;
 
 			yearSelector.scrollTo({
 				top: scrollTop,
@@ -270,7 +269,12 @@ const DatePickerComponent = ({
 												: setItemToPick("day");
 										}}
 									>
-										{names.days[showDate.getDay()-1]}&nbsp;{showDate.getDate()}
+										{
+											names.days[
+												showDate.getDay() - 1 < 0 ? 6 : showDate.getDay() - 1
+											]
+										}
+										&nbsp;{showDate.getDate()}
 										<div
 											style={{
 												width: "10%",
@@ -378,7 +382,7 @@ const DatePickerComponent = ({
 										}}
 									>
 										{createDaysTable({
-											dateRange:dateRange,
+											dateRange: dateRange,
 											weekDays: names.days,
 											selectDate: showDate,
 											focusStyle: customFocusedStyle,
@@ -399,7 +403,7 @@ const DatePickerComponent = ({
 								</div>
 							) : itemToPick === "month" ? (
 								createMonthTable({
-									dateRange:dateRange,
+									dateRange: dateRange,
 									monthList: names.months,
 									selectDate: showDate,
 									onMonthClick: handleDateChange,

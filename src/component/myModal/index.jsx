@@ -28,11 +28,9 @@ const MyModal = ({
 	const customTitleStyle = addTitleDefaultStyle(titleStyle);
 	const customMessageStyle = addMessageDefaultStyle(messageStyle);
 
-	if (!isModalOpen) {
-		return null;
-	}
-
-	return (
+	return isModalOpen === false ? (
+		<></>
+	) : (
 		<>
 			<div style={customOverlayStyle} onClick={closeModal}></div>
 			<div className="modal" style={customModalStyle}>
