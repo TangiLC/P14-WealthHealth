@@ -20,16 +20,16 @@ export const newEmployeeSlice = createSlice({
 			state[field] = value;
 		},
 		resetFields: (state) => {
-			state.firstName = null;
-			state.lastName = null;
+			state.firstName = "";
+			state.lastName = "";
 			state.dateOfBirth = 0;
 			state.startDate = 0;
-			state.department = null;
-			state.street = null;
-			state.city = null;
-			state.zipCode = null;
-			state.state = null;
-			state.shortState = null;
+			state.department = "";
+			state.street = "";
+			state.city = "";
+			state.zipCode = "";
+			state.state = "";
+			state.shortState = "";
 		},
 	},
 });

@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef, lazy } from "react";
+import React, { useEffect, useState, lazy } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateField, resetFields } from "../../slice/newEmployee";
 
-const InputComponent = lazy(() => import("../../component/formInput"));
-const DropDownComponent = lazy(() => import("../../component/myDropDown"));
-const DatePickerComponent = lazy(() => import("../../component/myDatePicker"));
-const MyModal = lazy(() => import("../../component/myModal"));
-const SaveButton = lazy(() => import("../../component/saveButton"));
+import InputComponent from "../../component/formInput";
+import DropDownComponent from "../../component/myDropDown";
+import DatePickerComponent from "../../component/myDatePicker";
+import MyModal from "../../component/myModal";
+import SaveButton from "../../component/saveButton";
 
 import { addEmployee } from "../../utils/utils";
 
@@ -14,6 +14,7 @@ import styles from "./styles.module.css";
 import data from "../data.json";
 import statesData from "../../assets/lists/states.json";
 import departmentsData from "../../assets/lists/departments.json";
+import { fetchEmployeesList } from "../../slice/employeesList";
 
 function CreateEmployee() {
 	const dispatch = useDispatch();
@@ -24,7 +25,6 @@ function CreateEmployee() {
 	const [isCheckEmpty, setIsCheckEmpty] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [modalMessage, setModalMessage] = useState("");
-	const isEmpty = useRef(false);
 	const [addEmployeeResult, setAddEmployeeResult] = useState({
 		success: false,
 		error: "",
@@ -72,9 +72,10 @@ function CreateEmployee() {
 			const addResult = await addEmployee(newEmployee);
 			setAddEmployeeResult(addResult);
 			setIsModalOpen(true);
-
-			if (addResult.success === true) {
+			if (addResult.success) {
+				dispatch(fetchEmployeesList());
 				dispatch(resetFields());
+				console.log("reset");
 			}
 		} else {
 			setIsCheckEmpty(true);
@@ -85,7 +86,7 @@ function CreateEmployee() {
 		if (isCheckEmpty) {
 			const timer = setTimeout(() => {
 				setIsCheckEmpty(false);
-			}, 5000);
+			}, 4000);
 			return () => clearTimeout(timer);
 		}
 	}, [isCheckEmpty]);
@@ -127,6 +128,7 @@ function CreateEmployee() {
 						<InputComponent
 							label={data[language].labels.firstName}
 							regex={new RegExp(data.regex.regexName)}
+							initVal={newEmployee.firstName}
 							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("firstName", value)}
 							isError={isCheckEmpty && newEmployee.firstName === null}
@@ -136,6 +138,7 @@ function CreateEmployee() {
 						<InputComponent
 							label={data[language].labels.lastName}
 							regex={new RegExp(data.regex.regexName)}
+							initVal={newEmployee.lastName}
 							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("lastName", value)}
 							isError={isCheckEmpty && newEmployee.lastName === null}
@@ -158,10 +161,11 @@ function CreateEmployee() {
 							datePickerErrorStyle={dropdownStyle.dropdownErrorStyle}
 							focusedStyle={dropdownStyle.focusedStyle}
 							arrowStyle={dropdownStyle.arrowStyle}
-							isError={isCheckEmpty && newEmployee.state === null}
+							isError={isCheckEmpty && newEmployee.dateOfBirth === null}
+							errorMessage={data[language].errorMessageDate}
 						/>
 					</div>
-					<div>&nbsp;</div>
+					{/*<div>&nbsp;</div>*/}
 					<div className={styles.column100} key={"startDate"}>
 						<DatePickerComponent
 							language={language}
@@ -179,10 +183,11 @@ function CreateEmployee() {
 							datePickerErrorStyle={dropdownStyle.dropdownErrorStyle}
 							focusedStyle={dropdownStyle.focusedStyle}
 							arrowStyle={dropdownStyle.arrowStyle}
-							isError={isCheckEmpty && newEmployee.state === null}
+							isError={isCheckEmpty && newEmployee.startDate === null}
+							errorMessage={data[language].errorMessageDate}
 						/>
 					</div>
-					<div>&nbsp;</div>
+					{/*<div>&nbsp;</div>*/}
 				</div>
 				<div className={`${styles.column50} ${styles.addressBorder}`}>
 					<div className={styles.relativePosTitle}>
@@ -192,6 +197,7 @@ function CreateEmployee() {
 						<InputComponent
 							label={data[language].labels.street}
 							regex={new RegExp(data.regex.regexStreet)}
+							initVal={newEmployee.street}
 							errorMessage={data[language].errorMessageStreet}
 							handleChange={(value) => handleChange("street", value)}
 							isError={isCheckEmpty && newEmployee.street === null}
@@ -201,6 +207,7 @@ function CreateEmployee() {
 						<InputComponent
 							label={data[language].labels.city}
 							regex={new RegExp(data.regex.regexName)}
+							initVal={newEmployee.city}
 							errorMessage={data[language].errorMessageName}
 							handleChange={(value) => handleChange("city", value)}
 							isError={isCheckEmpty && newEmployee.city === null}
@@ -233,6 +240,7 @@ function CreateEmployee() {
 						<InputComponent
 							label={data[language].labels.zipCode}
 							regex={new RegExp(data.regex.regexZip)}
+							initVal={newEmployee.zipCode}
 							errorMessage={data[language].errorMessageZip}
 							handleChange={(value) => handleChange("zipCode", value)}
 							isError={isCheckEmpty && newEmployee.zipCode === null}

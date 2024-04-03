@@ -22,6 +22,17 @@ export const sortedLines = (key, order, lines) => {
 	});
 };
 
+export const filterLines = (searchTerm,lines,searchColumns) => {
+    return lines.filter((line) => {
+        return searchColumns.some((column) =>
+            line[column]
+                ?.toString()
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
+        );
+    });
+};
+
 export const PageButtons = ({
 	totalPages,
 	currentPage,

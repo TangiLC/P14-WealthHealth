@@ -10,6 +10,24 @@ export const labelStyle = (customLabelStyle) => {
 	};
 };
 
+export const flexRowBetweenStyle = {
+	margin: "5px 20px",
+	display: "flex",
+	flexDirection: "row",
+	justifyContent: "space-between",
+};
+
+export const arrowDivStyle = (pos) => {
+	return {
+		width: "10%",
+		fontSize: ".6rem",
+		color: "lightgrey",
+		marginBottom: pos === "top" ? "-.75rem" : null,
+		marginTop: pos === "bottom" ? "-.75rem" : null,
+		padding: "0px",
+	};
+};
+
 export const evenStyle = (customEvenStyle) => {
 	return {
 		backgroundColor: "#eeeeee",
@@ -27,3 +45,9 @@ export const oddStyle = (customOddStyle) => {
 		...customOddStyle,
 	};
 };
+
+export const initCustomLabels = (customText) => ({
+	length: customText.itemPerPage || "Items per page :",
+	search: customText.search || "Search :",
+	show: customText.showingItems || ["Showing items", "to", "out of"],
+});

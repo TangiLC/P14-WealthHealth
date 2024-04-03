@@ -29,6 +29,8 @@ const DatePickerComponent = ({
 	datePickerCalendarStyle,
 	focusedStyle,
 	handleChange,
+	isError,
+	errorMessage,
 }) => {
 	const names = datesLabels || defaultNames;
 	const [initDate, setInitDate] = useState(new Date(defaultDate) || new Date());
@@ -190,7 +192,7 @@ const DatePickerComponent = ({
 						setShowDate(dateRange.min);
 					} else setShowDate(checkDate);
 				}
-			}
+			} else setSelectedDate(showDate.toISOString().split("T")[0]);
 		}
 	};
 
@@ -421,6 +423,10 @@ const DatePickerComponent = ({
 						</div>
 					)}
 				</div>
+			</div>
+			<div>
+				{isError ? errorMessage : " "}
+				<br />
 			</div>
 		</>
 	);

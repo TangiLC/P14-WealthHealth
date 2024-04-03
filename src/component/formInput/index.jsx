@@ -5,12 +5,17 @@ import styles from "./styles.module.css";
 const InputComponent = ({
 	label,
 	regex,
+	initVal,
 	errorMessage,
 	handleChange,
 	isError,
 }) => {
-	const [inputValue, setInputValue] = useState("");
+	const [inputValue, setInputValue] = useState(initVal||"");
 	const [showErrorMessage, setShowErrorMessage] = useState(isError);
+
+	useEffect(() => {
+		setInputValue("");
+	}, []);
 
 	const handleInputChange = (e) => {
 		const value = e.target.value;

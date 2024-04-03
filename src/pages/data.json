@@ -48,6 +48,7 @@
 			"actions": "Actions",
 			"delete": "delete",
 			"edit": "edit",
+			"copy": "copy",
 			"tableText": {
 				"itemPerPage": "Items per page",
 				"search": "Search :",
@@ -58,6 +59,7 @@
 		"errorMessageZip": "please use only digits",
 		"errorMessageStreet": "please use authorized characters only (A-Z ,.- 0-9), don't leave empty",
 		"errorMessageEmpty": "please select an item",
+		"errorMessageDate": "please enter an authorized date, don't leave empty",
 		"modalTitle": "New Employee Creation",
 		"modalSuccess": "New employee successfully created",
 		"modalFail": "An error occurred while creating new employee, code :"
@@ -107,6 +109,7 @@
 			"actions": "Actions",
 			"delete": "supprimer",
 			"edit": "modifier",
+			"copy": "copier",
 			"tableText": {
 				"itemPerPage": "Éléments par page :",
 				"search": "Recherche :",
@@ -117,6 +120,7 @@
 		"errorMessageZip": "merci de n'utiliser que des chiffres",
 		"errorMessageStreet": "merci d'utiliser les caractères autorisés (A-Z ,.- 0-9), ne pas laisser vide",
 		"errorMessageEmpty": "merci de sélectionner un élément",
+		"errorMessageDate": "merci d'entrer une date autorisée, ne pas laisser vide",
 		"modalTitle": "Création d'un nouvel employé",
 		"modalSuccess": "Nouvel employé créé avec succès",
 		"modalFail": "Une erreur est survenue lors de la création, code :"
@@ -163,16 +167,21 @@
 			"shortState": "Estado",
 			"address": "Dirección",
 			"save": "Guardar",
-			"pageLength": "Elementos por página :",
-			"search": "Buscar :",
 			"actions": "Acciones",
 			"delete": "eliminar",
-			"edit": "editar"
+			"edit": "editar",
+			"copy": "copiar",
+			"tableText": {
+				"itemPerPage": "Elementos por página :",
+				"search": "Buscar :",
+				"showingItems": ["Mostrando elementos", "a", "de"]
+			}
 		},
 		"errorMessageName": "utilice caracteres permitidos (A-Z ,.-), no deje en blanco por favor",
 		"errorMessageZip": "utilice solo números  por favor",
 		"errorMessageStreet": "utilice caracteres permitidos (A-Z ,.- 0-9), no deje en blanco  por favor",
 		"errorMessageEmpty": "seleccione un elemento  por favor",
+		"errorMessageDate": "Ingrese una fecha autorizada, no deje en blanco por favor",
 		"modalTitle": "Creación de un nuevo empleado",
 		"modalSuccess": "Nuevo empleado creado exitosamente",
 		"modalFail": "Se produjo un error durante la creación, código:"

@@ -14,6 +14,23 @@ export const addEmployee = async (body) => {
 	}
 };
 
+export const deleteEmployee = async (id) => {
+	try {
+		const response = await axios.delete(
+			`http://localhost:3003/deleteEmployee/${id}`
+		);
+		return { success: true };
+	} catch (error) {
+		if (error.response) {
+			console.error("Error deleting employee:", error.response.data.error);
+		} else if (error.request) {
+			console.error("Error making request:", error.request);
+		} else {
+			console.error("Error:", error.message);
+		}
+	}
+};
+
 export const getWeekDay = (date, language, isShort) => {
 	const daysOfWeek = {
 		en: [
