@@ -59,7 +59,7 @@ function ViewTable() {
 					titles={labels}
 					hide={["id", "state"]}
 					custom={{
-						lengthChoice: [8, 16, 24, 50],
+						lengthChoice: [10, 20, 40, 80],
 						text: labels.tableText,
 						columns: {
 							values: [
@@ -73,17 +73,7 @@ function ViewTable() {
 								"zipCode",
 								"shortState",
 							],
-							width: [
-								"13%",
-								"13%",
-								"8%",
-								"10%",
-								"8%",
-								"11%",
-								"11%",
-								"7%",
-								"5%",
-							],
+							width: ["11%", "11%", "8%", "11%", "8%", "16%", "8%", "8%", "5%"],
 						},
 						titleStyle: { backgroundColor: "#d0d08f" },
 						evenLineStyle: { backgroundColor: "#abc32f" },
