@@ -1,11 +1,11 @@
-export const labelStyle = (customLabelStyle) => {
+export const titleStyle = (customTitleStyle) => {
 	return {
 		backgroundColor: "#fefefe",
 		borderBottom: "1px solid #cccccc",
 		lineHeight: "2rem",
 		fontWeight: "600",
 		textAlign: "center",
-		...customLabelStyle,
+		...customTitleStyle,
 		display: "flex",
 	};
 };

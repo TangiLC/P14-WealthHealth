@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { sortedLines, filterLines, PageButtons, darkenColor } from "./utils";
 import {
-	labelStyle,
+	titleStyle,
 	evenStyle,
 	oddStyle,
 	initCustomLabels,
@@ -9,7 +9,7 @@ import {
 	arrowDivStyle,
 } from "./const";
 
-const MyTable = ({ lines, labels, hide, custom }) => {
+const TangiTable = ({ lines, titles, hide, custom }) => {
 	const lastColumn = custom.actionColumn ? custom.actionColumn : null;
 	const colWidth = custom.columns?.width ? custom.columns.width : [];
 	const lengthChoice = custom.lengthChoice ? custom.lengthChoice : [10, 20, 50];
@@ -37,7 +37,7 @@ const MyTable = ({ lines, labels, hide, custom }) => {
 	const searchColumns = custom.searchCol ? custom.searchCol : columns;
 	const [searchTerm, setSearchTerm] = useState("");
 
-	const lStyle = labelStyle(custom.labelStyle);
+	const lStyle = titleStyle(custom.titleStyle);
 	const eStyle = evenStyle(custom.evenLineStyle);
 	const oStyle = oddStyle(custom.oddLineStyle);
 	const selectedEStyle = {
@@ -119,11 +119,11 @@ const MyTable = ({ lines, labels, hide, custom }) => {
 					/>
 				</div>
 			</div>
-			{!Array.isArray(filteredLines) ? (
-				<>{emptyArrayMessage}</>
+			{filteredLines.length === 0 ? (
+				<div className="noDataError">{emptyArrayMessage}</div>
 			) : (
 				<div>
-					{/* Labels */}
+					{/* Titles */}
 					<div style={lStyle}>
 						{columns.map(
 							(key, index) =>
@@ -147,7 +147,7 @@ const MyTable = ({ lines, labels, hide, custom }) => {
 												textOverflow: '""',
 											}}
 										>
-											{labels[key]}
+											{titles[key]}
 										</div>
 
 										{sortKey === key && (
@@ -256,4 +256,4 @@ const MyTable = ({ lines, labels, hide, custom }) => {
 	);
 };
 
-export default MyTable;
+export default TangiTable;

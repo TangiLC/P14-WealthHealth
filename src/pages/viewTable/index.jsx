@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeesList } from "../../slice/employeesList";
 import { deleteEmployee } from "../../utils/utils";
 
-const MyTable = lazy(() => import("../../component/myTable"));
+//const TangiTable = lazy(() => import("../../component/myTable"));
+import TalecTable from "talec-table";
 
 import data from "../data.json";
 import { BsTrash3Fill, BsPencilSquare, BsClipboardCheck } from "react-icons/bs";
@@ -53,12 +54,11 @@ function ViewTable() {
 	return (
 		<>
 			<div key={"viewTable"}>
-				<MyTable
+				<TalecTable
 					lines={employees}
-					labels={labels}
+					titles={labels}
 					hide={["id", "state"]}
 					custom={{
-						labelStyle: { backgroundColor: "#d0d08f" },
 						lengthChoice: [8, 16, 24, 50],
 						text: labels.tableText,
 						columns: {
@@ -85,6 +85,7 @@ function ViewTable() {
 								"5%",
 							],
 						},
+						titleStyle: { backgroundColor: "#d0d08f" },
 						evenLineStyle: { backgroundColor: "#abc32f" },
 						oddLineStyle: { backgroundColor: "#ececa3" },
 						actionColumn: {
