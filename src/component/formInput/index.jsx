@@ -10,7 +10,7 @@ const InputComponent = ({
 	handleChange,
 	isError,
 }) => {
-	const [inputValue, setInputValue] = useState(initVal||"");
+	const [inputValue, setInputValue] = useState(initVal || "");
 	const [showErrorMessage, setShowErrorMessage] = useState(isError);
 
 	useEffect(() => {
@@ -40,6 +40,8 @@ const InputComponent = ({
 			<div>
 				<input
 					type="text"
+					name="input"
+					data-testid="input"
 					className={showErrorMessage ? styles.errorInput : styles.input}
 					value={inputValue}
 					onChange={handleInputChange}

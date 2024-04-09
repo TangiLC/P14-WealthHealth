@@ -63,7 +63,17 @@ export const getWeekDay = (date, language, isShort) => {
 	};
 
 	const dayIndex = new Date(date).getDay();
-	const days = daysOfWeek[language];
+	const days = daysOfWeek[language]
+		? daysOfWeek[language]
+		: [
+				"Sunday",
+				"Monday",
+				"Tuesday",
+				"Wednesday",
+				"Thursday",
+				"Friday",
+				"Saturday",
+		  ];
 	if (isShort) {
 		return days[dayIndex].substring(0, 3);
 	} else {

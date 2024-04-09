@@ -1,3 +1,4 @@
+import React from "react";
 /*************mise en forme du cadre *********************/
 export function extractBorderRadius(borderRadius, side) {
 	const values = borderRadius.split(" ");

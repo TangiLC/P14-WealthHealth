@@ -198,11 +198,12 @@ const DatePickerComponent = ({
 
 	return (
 		<>
-			<div style={customLabelStyle}>
+			<div style={customLabelStyle} data-testid="custom-label">
 				<label>{label}</label>
 			</div>
 			<div style={customDatePickerStyle} ref={DatePickerRef}>
 				<div
+					data-testid="selected-item"
 					className="selected-item"
 					style={
 						selectedDate
@@ -212,8 +213,12 @@ const DatePickerComponent = ({
 					//onKeyDown={handleKeyDown}
 					tabIndex={0}
 				>
-					<div onClick={() => setIsOpen(!isOpen)}>
+					<div
+						onClick={() => setIsOpen(!isOpen)}
+						data-testid="date-input-container"
+					>
 						<input
+							data-testid="date-input"
 							style={customDatePickerInputStyle}
 							type="text"
 							value={selectedDate}
@@ -230,9 +235,11 @@ const DatePickerComponent = ({
 						<div
 							style={customDatePickerListStyle}
 							className="DatePicker-container"
+							data-testid="DatePicker-container"
 						>
 							<div className="year-container" style={{ display: "flex" }}>
 								<div
+									data-testid="year-minus"
 									className="year-minus"
 									style={{ width: "10%", fontSize: "1.2rem" }}
 									onClick={() => modifyDate("y", -1)}
@@ -251,6 +258,7 @@ const DatePickerComponent = ({
 									}}
 								>
 									<div
+										data-testid="reset-date"
 										className="reset-date"
 										style={{ width: "10%", fontWeight: "800" }}
 										onClick={() => handleDateChange(initDate)}
@@ -357,6 +365,7 @@ const DatePickerComponent = ({
 									</div>
 								</div>
 								<div
+									data-testid="year-plus"
 									className="year-plus"
 									style={{ width: "10%", textAlign: "end", fontSize: "1.2rem" }}
 									onClick={() => modifyDate("y", 1)}
@@ -370,6 +379,7 @@ const DatePickerComponent = ({
 									style={{ display: "flex", justifyContent: "space-between" }}
 								>
 									<div
+										data-testid="month-minus"
 										className="month-minus"
 										style={{ display: "flex", alignSelf: "center" }}
 										onClick={() => modifyDate("m", -1)}
@@ -392,6 +402,7 @@ const DatePickerComponent = ({
 										})}
 									</div>
 									<div
+										data-testid="month-plus"
 										className="month-plus"
 										style={{
 											textAlign: "end",

@@ -46,11 +46,12 @@ const LanguageSelect = () => {
 		<>
 			<div className={styles.flexRow}>
 				<div
+					data-testid="language-toggle"
 					className={`${styles.flag} ${styles[flagClasses[language]]}`}
 					onClick={toggleMenu}
 				/>
 				{isOpen && (
-					<>
+					<div data-testid="language-menu">
 						{Object.keys(languages).map((langCode) => {
 							const lang = languages[langCode];
 							if (language === lang.code) {
@@ -58,6 +59,7 @@ const LanguageSelect = () => {
 							}
 							return (
 								<div
+									data-testid="flag-button"
 									key={lang.code}
 									onClick={() => selectLang(lang.code)}
 									className={`${styles.miniFlag} ${
@@ -66,12 +68,13 @@ const LanguageSelect = () => {
 									alt={lang.label}
 									title={lang.label}
 									style={{ textTransform: "capitalize" }}
-								><br/>
+								>
+									<br />
 									{lang.code}
 								</div>
 							);
 						})}
-					</>
+					</div>
 				)}
 			</div>
 		</>

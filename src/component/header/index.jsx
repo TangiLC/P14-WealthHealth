@@ -54,6 +54,7 @@ function Header() {
 			<div className={styles.container}>
 				<div className={styles.column60}>
 					<div
+						data-testid="home"
 						className={styles.column30}
 						onClick={() => {
 							handleClick("home");
@@ -67,31 +68,36 @@ function Header() {
 					</div>
 					<div className={styles.column70}>
 						<h1>HR Net</h1>
-						{data[language].hrnet}
+						{data[language]?.hrnet
+							? data[language]?.hrnet
+							: "Employees files managment App"}
 					</div>
 				</div>
 				<div className={styles.column40}>
 					<div className={styles.column50}>
 						{isViewButton ? (
 							<div
+								data-testid="view"
 								className={styles.button}
 								onClick={() => {
 									handleClick("view");
 								}}
 							>
 								<FaUsers />
-								&nbsp;{data[language].view}
+								&nbsp;{data[language]?.view ? data[language].view : "View"}
 							</div>
 						) : null}
 						{isCreateButton ? (
 							<div
+								data-testid="create"
 								className={styles.button}
 								onClick={() => {
 									handleClick("create");
 								}}
 							>
 								<FaUserPlus />
-								&nbsp;{data[language].create}
+								&nbsp;
+								{data[language]?.create ? data[language].create : "Create"}
 							</div>
 						) : null}
 					</div>
