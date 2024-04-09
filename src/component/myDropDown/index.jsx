@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { extractBorderRadius, setNewFocus } from "./utils";
+import React, { useState, useRef, useEffect, createRef } from "react";
+import { extractBorderRadius } from "./utils";
 import {
 	addChevronOpenDefaultStyle,
 	addChevronClosedDefaultStyle,
@@ -182,6 +182,7 @@ const DropDownComponent = ({
 						<div style={customDropdownListStyle} className="dropdown-container">
 							{list.map((item, index) => (
 								<div
+									data-testid="dropdown-item"
 									className="dropdown-item"
 									tabIndex={0}
 									key={index}
@@ -189,7 +190,7 @@ const DropDownComponent = ({
 									onMouseOver={() => handleFocus(index)}
 									onFocus={() => handleFocus(index)}
 									style={focusedIndex === index ? customFocusedStyle : null}
-									ref={focusedIndex === index ? focusedItemRef : null}
+									ref={index === focusedIndex ? createRef() : null}
 								>
 									{item}
 								</div>

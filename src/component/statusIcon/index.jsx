@@ -44,6 +44,7 @@ function StatusIcon({ status, error }) {
 	return (
 		<>
 			<div
+				data-testid={iconVal.isSpinning ? "spinner" : "notSpinner"}
 				className={iconVal.isSpinning ? "spinner" : "notSpinner"}
 				style={{
 					color: iconVal.iconColor,
@@ -53,7 +54,7 @@ function StatusIcon({ status, error }) {
 			>
 				{iconVal.icon}
 			</div>
-			<div className="message">
+			<div className="message" data-testid="message">
 				{iconVal.message}
 				<br />
 				{error}
