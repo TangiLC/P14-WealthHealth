@@ -12,6 +12,7 @@ function SaveButton({ label, isClickable, handleSave }) {
 		<div style={{ display: "flex", justifyContent: "center" }}>
 			{!isClickable ? (
 				<div
+					data-testid="save-inactive"
 					className={`${styles.button} ${styles.inactive}`}
 					onClick={handleClick}
 				>
@@ -20,6 +21,7 @@ function SaveButton({ label, isClickable, handleSave }) {
 				</div>
 			) : (
 				<div
+					data-testid="save-active"
 					className={`${styles.button} ${styles.active}`}
 					onClick={handleClick}
 				>
