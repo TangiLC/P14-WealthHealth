@@ -62,6 +62,8 @@ function Header() {
 					>
 						<img
 							src={whLogo}
+							width="auto"
+							height="auto"
 							style={{ maxWidth: "100px", height: "auto" }}
 							alt="Wealth Health"
 						/>
