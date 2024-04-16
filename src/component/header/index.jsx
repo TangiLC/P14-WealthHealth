@@ -6,7 +6,7 @@ import StatusIcon from "../statusIcon";
 import LanguageSelect from "../languageSelect";
 import { getWeekDay } from "../../utils/utils";
 import { FaUsers, FaUserPlus } from "react-icons/fa6";
-import whLogo from "../../assets/images/WH_logo.png";
+import whLogo from "../../assets/images/WH_logo.webp";
 
 import data from "./data.json";
 import styles from "./styles.module.css";
@@ -62,8 +62,8 @@ function Header() {
 					>
 						<img
 							src={whLogo}
-							width="auto"
-							height="auto"
+							width="100px"
+							height="100px"
 							style={{ maxWidth: "100px", height: "auto" }}
 							alt="Wealth Health"
 						/>

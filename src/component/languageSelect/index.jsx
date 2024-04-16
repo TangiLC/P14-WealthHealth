@@ -51,7 +51,7 @@ const LanguageSelect = () => {
 					onClick={toggleMenu}
 				/>
 				{isOpen && (
-					<div data-testid="language-menu">
+					<div data-testid="language-menu" className={`${styles.languageMenu}`}>
 						{Object.keys(languages).map((langCode) => {
 							const lang = languages[langCode];
 							if (language === lang.code) {
@@ -69,7 +69,6 @@ const LanguageSelect = () => {
 									title={lang.label}
 									style={{ textTransform: "capitalize" }}
 								>
-									<br />
 									{lang.code}
 								</div>
 							);

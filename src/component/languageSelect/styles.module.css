@@ -6,7 +6,7 @@
 .flag {
 	width: 35px;
 	height: 35px;
-	background-image: url("./flags.png");
+	background-image: url("./flags.webp");
 	background-size: 105px 105px;
 	font-size: 1.2rem;
 	font-weight: bold;
@@ -19,7 +19,7 @@
 .miniFlag {
 	width: 25px;
 	height: 25px;
-	background-image: url("./flags.png");
+	background-image: url("./flags.webp");
 	background-size: 300%;
 	font-size: 1.2rem;
 	font-weight: "500";
@@ -43,4 +43,9 @@
 
 .flag-ge {
 	background-position: -100% -100%;
+}
+
+.languageMenu {
+	display: flex;
+	flex-direction: row;
 }
