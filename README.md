@@ -4,7 +4,7 @@
 
 # Projet de Conversion jQuery vers React
 
-Ce projet représente la conversion d'une application de jQuery vers React pour une grande société financière fictive WealthHealth.
+Ce projet représente la conversion d'une application de jQuery vers React pour une grande société financière fictive WealthHealth. Il s'agit d'un exercice du cursus Open Classrooms _développeur d'application -Javascript React-_.
 
 ## Objectif du Projet
 
@@ -18,7 +18,7 @@ L'objectif principal de ce projet est de moderniser l'application existante en r
 - Refonte et modernisation de la page "view employees".
 - Application d'un style CSS commun modernisé pour les pages, cohérent avec la palette du logo.
 
-- Gestion des states avec Redux
+- Gestion des states avec Redux /toolkit
 - Gestion de la persistance de la liste avec un backend minimal [Github : P14-P14-WealthHealth-back](https://github.com/TangiLC/P14-WealthHealth-back)
 - Réalisation et publication d'un plugin sur npm, intégration dans l'application
   [npm : talec-table](https://www.npmjs.com/package/talec-table)
@@ -31,6 +31,7 @@ L'objectif principal de ce projet est de moderniser l'application existante en r
 <img src="./lighthouse/react-app.webp" width="450px" height="75px" alt="react"/></p>
 
 Une version en ligne de l'archive est disponible à cette adresse : [http://www.ocprojects.le-cadre.net/P14/](http://www.ocprojects.le-cadre.net/P14/)
+
 Une version dev de l'appli React est hébergée chez Netlify:[https://lecadre-p14front.netlify.app/](https://lecadre-p14front.netlify.app/)
 
 ## Compétences acquises
