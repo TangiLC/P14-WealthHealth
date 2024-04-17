@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//Slice for managing the current display language
 const languageSlice = createSlice({
 	name: "language",
 	initialState: "en",

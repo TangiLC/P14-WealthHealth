@@ -2,6 +2,19 @@ import React, { useState, useEffect } from "react";
 
 import styles from "./styles.module.css";
 
+/**
+ * Component InputComponent
+ * 
+ * @param {Object} props - react props
+ * @param {string} props.label - label above input form
+ * @param {RegExp} props.regex - regex to validate user entry
+ * @param {string} props.initVal - initial value of input
+ * @param {string} props.errorMessage - error message if input is not in regex
+ * @param {function} props.handleChange - parent callback function to change value
+ * @param {boolean} props.isError - allow to show errorMessage and change style if true
+ * @returns {JSX.Element} React component -Input field with regex validation
+ */
+
 const InputComponent = ({
 	label,
 	regex,

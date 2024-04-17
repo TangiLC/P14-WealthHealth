@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//slice for managing modal data
 const modalDataSlice = createSlice({
 	name: "modalData",
 	initialState: {

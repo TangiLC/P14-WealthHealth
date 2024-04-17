@@ -9,6 +9,25 @@ import {
 	addLabelDefaultStyle,
 } from "./const";
 
+/**
+ * Component DropDownComponent
+ *
+ * @param {Object} props - React component props
+ * @param {string} props.label - Label above date picker
+ * @param {CSSObjectStyle} props.labelStyle - CSS Object style of Label
+ * @param {string} props.placeholder - Placeholder of input field
+ * @param {string} props.arrow - user custom dropdown arrow
+ * @param {CSSObjectStyle} props.arrowStyle - CSS Object style of dropdown arrow
+ * @param {Array} props.list - Content of dropdown element to be selected
+ * @param {CSSObjectStyle} props.dropdownStyle - Container CSS Object Style
+ * @param {CSSObjectStyle} props.dropdownErrorStyle - Container CSS Object Style on error
+ * @param {CSSObjectStyle} props.dropdownListStyle - Content list CSS Object Style
+ * @param {CSSObjectStyle} props.focusedStyle - focused element CSS Object Style
+ * @param {function} props.handleChange - Parent callback function to change selected item
+ * @param {boolean} props.isError - Allow error style and error message to be displayed
+ * @returns {JSX.Element} React component of a customable dropdown list
+ */
+
 const DropDownComponent = ({
 	label,
 	labelStyle,

@@ -1,0 +1,1 @@
+//void file to avoid error while mocking images in jest tests

@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../../slice/language";
 import styles from "./styles.module.css";
 
+/**
+ * Component LanguageSelect
+ *
+ * @param {string} language - display language stored in state ("en"/"es"/"fr"/default : browser language||'en')
+ * @returns {JSX.Element} React component allowing to change display language in state
+ */
+
 const LanguageSelect = () => {
 	const dispatch = useDispatch();
 	const language = useSelector((state) => state.language);

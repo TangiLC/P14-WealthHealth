@@ -15,6 +15,28 @@ import {
 	defaultNames,
 } from "./const";
 
+/**
+ * Component DatePickerComponent
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.label - Label above date picker
+ * @param {CSSObjectStyle} props.labelStyle - CSS Object style of Label
+ * @param {string} props.placeholder - Placeholder of input field
+ * @param {string} props.arrow - user custom dropdown arrow
+ * @param {CSSObjectStyle} props.arrowStyle - CSS Object style of dropdown arrow
+ * @param {Date} props.defaultDate - Default date
+ * @param {Object} props.dateRange - Date range {min:Date,max:Date} if needed
+ * @param {Object} props.datesLabels - Labels for weekdays and month in user language (default : english) format={months:["jan",..,"dec"],days:["sun",..,"sat"]}
+ * @param {CSSObjectStyle} props.datePickerStyle - Container CSS Object style
+ * @param {CSSObjectStyle} props.datePickerInputStyle - Input field CSS Object style
+ * @param {CSSObjectStyle} props.datePickerCalendarStyle - Calendar CSS Object style
+ * @param {CSSObjectStyle} props.focusedStyle - Focused element CSS Object style
+ * @param {function} props.handleChange - Parent callback function to change selected date
+ * @param {boolean} props.isError - Allow error style and error message to be displayed
+ * @param {string} props.errorMessage -Error message
+ * @returns {JSX.Element} React Element of a customable Date Picker
+ */
+
 const DatePickerComponent = ({
 	label,
 	labelStyle,

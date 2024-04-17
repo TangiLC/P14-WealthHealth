@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchList } from "../utils/utils";
 
+//Slice for managing the current Employees list and loading status
 export const employeesListSlice = createSlice({
 	name: "employeesList",
 	initialState: {

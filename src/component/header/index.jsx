@@ -11,6 +11,21 @@ import whLogo from "../../assets/images/WH_logo.webp";
 import data from "./data.json";
 import styles from "./styles.module.css";
 
+/**
+ * Component Header
+ * 
+ * @param {Object} employees - object stored in state
+ * @param {Array} employees.list - [array of objects employee]
+ * @param {string} employees.status - response to data fetching ("idle"/"loading"/"success"/"fail")
+ * @param {string} employees.error - axios error return payload
+ * @param {string} employees.statusMessage - axios return message
+ * @param {string} language - display language stored in state ("en"/"es"/"fr"/default : browser language||'en')
+ * @param {string} today - date in short ISO format ('yyyy-mm-dd') stored in state
+ * @param {string} currentPath - route path stored in state (""/"home"/"create"/"view")
+ 
+ * @returns {JSX.Element}  React component Header containing logo, title, nav buttons, language selector, date, and loading status
+ */
+
 function Header() {
 	const employees = useSelector((state) => state.employeesList);
 	const language = useSelector((state) => state.language);

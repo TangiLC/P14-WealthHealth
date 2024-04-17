@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//Slice for managing the current path state
 const currentPathSlice = createSlice({
 	name: "currentPath",
 	initialState: "home",

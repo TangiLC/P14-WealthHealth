@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//slice for managing creation of a new employee
 export const newEmployeeSlice = createSlice({
 	name: "newEmployee",
 	initialState: {

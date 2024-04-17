@@ -8,6 +8,23 @@ import {
 	addTitleDefaultStyle,
 } from "./const";
 
+/**
+ * Modal component
+ * @param {object} props - Component props.
+ * @param {CSSObjectStyle} props.overlayStyle - Custom CSS style for the overlay.
+ * @param {CSSObjectStyle} props.modalStyle - Custom CSS style for the modal.
+ * @param {CSSObjectStyle} props.closeStyle - Custom CSS style for the close button.
+ * @param {CSSObjectStyle} props.closeOffsetStyle - Custom CSS style for the close button offset.
+ * @param {string} props.closeContent - Content for the close button, default is "×".
+ * @param {string} props.modalTitle - Title content of the modal
+ * @param {CSSObjectStyle} props.titleStyle - Custom CSS style for the modal title.
+ * @param {string} props.modalMessage - Message content of the modal.
+ * @param {CSSObjectStyle} props.messageStyle - Custom CSS style for the modal message.
+ * @param {boolean} props.isModalOpen - Flag indicating whether the modal is open or closed.
+ * @param {function} props.closeModal - Parent callback function to close the modal.
+ * @returns {JSX.Element} Rendered modal component that displays a customizable modal dialog.
+ */
+
 const MyModal = ({
 	overlayStyle,
 	modalStyle,

@@ -3,6 +3,14 @@ import { ImSpinner2, ImBlocked, ImEllo, ImShocked } from "react-icons/im";
 
 import "./style.css";
 
+/**
+ * StatusIcon component.
+ * @param {object} props - React component props.
+ * @param {string} props.status - Current status ("loading", "failed", "success").
+ * @param {string} props.error - Error message to display if the status is "failed".
+ * @returns {JSX.Element} Rendered status icon component that displays an icon based on the status.
+ */
+
 function StatusIcon({ status, error }) {
 	//"loading"/"failed"/"success"
 	const [currentStatus, setCurrentStatus] = useState(status);
