@@ -7,6 +7,7 @@ import DropDownComponent from "../../component/myDropDown";
 import DatePickerComponent from "../../component/myDatePicker";
 import MyModal from "../../component/myModal";
 import SaveButton from "../../component/saveButton";
+import whLogo from "../../assets/images/WH_logo.webp";
 
 import { addEmployee } from "../../utils/utils";
 
@@ -30,6 +31,13 @@ function CreateEmployee() {
 		error: "",
 	});
 
+	const logo = () => {
+		return (
+			<div>
+				<img src={whLogo} width="40px" height="40px" alt="Wealth Health" />
+			</div>
+		);
+	};
 	const statesList = statesData.states.map((state) => state.fullName);
 	const departmentsList = departmentsData.departments;
 
@@ -68,14 +76,13 @@ function CreateEmployee() {
 
 	const handleSave = async () => {
 		if (isSaveClickable) {
-			console.log("SAVE", newEmployee);
+			//console.log("SAVE", newEmployee);
 			const addResult = await addEmployee(newEmployee);
 			setAddEmployeeResult(addResult);
 			setIsModalOpen(true);
 			if (addResult.success) {
 				dispatch(fetchEmployeesList());
 				dispatch(resetFields());
-				console.log("reset");
 			}
 		} else {
 			setIsCheckEmpty(true);
@@ -250,11 +257,30 @@ function CreateEmployee() {
 			</div>
 			<div className={styles.modalPosition} key={"modal"}>
 				<MyModal
-					modalStyle={""}
-					modalTitle={data[language].modalTitle}
-					titleStyle={""}
+					modalStyle={{
+						border: "2px solid #abc32f",
+						boxShadow: "2px 2px 3px #607c3c",
+						padding: "0px",
+					}}
+					modalTitle={
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "row",
+								justifyContent: "space-evenly",
+							}}
+						>
+							{logo()}
+							<div style={{ paddingTop: "5px" }}>
+								{data[language].modalTitle}
+							</div>
+							<div>{logo()}</div>
+						</div>
+					}
+					titleStyle={{ backgroundColor: "#abc32f", padding: "5px" }}
 					modalMessage={modalMessage}
-					messageStyle={""}
+					messageStyle={{ padding: "10px" }}
+					closeStyle={{ backgroundColor: "#607c3c" }}
 					isModalOpen={isModalOpen}
 					closeModal={handleCloseModal}
 				/>

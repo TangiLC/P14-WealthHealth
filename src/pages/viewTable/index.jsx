@@ -24,14 +24,14 @@ function ViewTable() {
 			await deleteEmployee(id);
 			dispatch(fetchEmployeesList());
 
-			console.log("delete", id);
+			//console.log("delete", id);
 		} catch (error) {
 			console.error("Error deleting employee:", error);
 		}
 	};
 
 	const editItem = (id) => {
-		console.log("edit", id);
+		//console.log("edit", id);
 	};
 
 	const copyToClipboard = (id) => {
@@ -47,7 +47,7 @@ function ViewTable() {
 				.map(([key, value]) => `${value}`)
 				.join("\n");
 			navigator.clipboard.writeText(text);
-			console.log("copy to clipboard :", text);
+			//console.log("copy to clipboard :", text);
 		}
 	};
 
