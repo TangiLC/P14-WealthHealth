@@ -34,7 +34,7 @@ function CreateEmployee() {
 	const logo = () => {
 		return (
 			<div>
-				<img src={whLogo} width="40px" height="40px" alt="Wealth Health" />
+				<img src={whLogo} width="35px" height="35px" alt="Wealth Health" />
 			</div>
 		);
 	};
