@@ -10,7 +10,7 @@ import ViewTable from "./pages/viewTable/index";
 import CreateEmployee from "./pages/createEmployee/index";
 import store from "./utils/store";
 
-//import "./styles/style.css";
+import "./style.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<Provider store={store}>
