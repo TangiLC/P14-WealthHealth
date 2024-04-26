@@ -39,7 +39,7 @@
 		"testEnvironment": "jsdom",
 		"moduleNameMapper": {
 			"\\.(css|less|sass|scss)$": "identity-obj-proxy",
-			"\\.(png)$": "<rootDir>src/test/emptyModule.js"
+			"\\.(png|webp)$": "<rootDir>src/test/emptyModule.js"
 		},
 		"modulePathIgnorePatterns": [
 			"<rootDir>/node_modules/",
