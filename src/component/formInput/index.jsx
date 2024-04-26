@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 
 /**
  * Component InputComponent
- * 
+ *
  * @param {Object} props - react props
  * @param {string} props.label - label above input form
  * @param {RegExp} props.regex - regex to validate user entry
@@ -48,10 +48,11 @@ const InputComponent = ({
 	return (
 		<div>
 			<div className={styles.label}>
-				<label>{label}</label>
+				<label htmlFor={label}>{label}</label>
 			</div>
 			<div>
 				<input
+					id={label}
 					type="text"
 					name="input"
 					data-testid="input"
