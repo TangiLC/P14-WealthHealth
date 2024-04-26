@@ -1,5 +1,5 @@
 .button {
-	width:80%;
+	width: 80%;
 	margin: 12px;
 	padding: 8px;
 	border: none;
@@ -12,12 +12,13 @@
 }
 
 .inactive {
-	color: grey;
+	color: darkgray;
 	background-color: #8fbc8f;
 }
 
 .active {
 	cursor: pointer;
+	color: black;
 	background-color: #abc32f;
 	transition: background-color 0.3s;
 }

@@ -187,7 +187,7 @@ const DropDownComponent = ({
 					style={
 						selectedItem
 							? { position: "relative" }
-							: { position: "relative", color: "grey" }
+							: { position: "relative", color: "darkgrey" }
 					}
 					onClick={() => setIsOpen(!isOpen)}
 					onKeyDown={handleKeyDown}
