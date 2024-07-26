@@ -1,7 +1,18 @@
 import axios from "axios";
-
-export const fetchList = () => {
-	return axios.get("http://localhost:3003/getAllEmployees/");
+export const fetchList = async () => {
+	try {
+		const response = await axios.get("http://localhost:3003/getAllEmployees/");
+		return response.data;
+	} catch (error) {
+		console.error("Error fetching from server, using mock data:", error);
+		try {
+			const response = await axios.get("/mock/employees.json");
+			return response.data;
+		} catch (fileError) {
+			console.error("Error reading mock data:", fileError);
+			return { success: false, error: fileError };
+		}
+	}
 };
 
 export const addEmployee = async (body) => {
